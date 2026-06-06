@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
 
 interface Brand {
   id: string
@@ -15,19 +14,28 @@ interface Brand {
 
 export default function DashboardPage() {
   const router = useRouter()
-  const supabase = createClient()
   const [brands, setBrands] = useState<Brand[]>([])
   const [loading, setLoading] = useState(true)
   const [session, setSession] = useState<boolean | null>(null)
+  const [configError, setConfigError] = useState(false)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (!user) {
-        router.replace('/auth/login')
+    // Dynamic import to avoid reference at module level (which breaks static prerendering)
+    import('@/lib/supabase/client').then(({ createClient }) => {
+      const supabase = createClient()
+      if (!supabase) {
+        setConfigError(true)
+        setLoading(false)
         return
       }
-      setSession(true)
-      fetchBrands()
+      supabase.auth.getUser().then(({ data: { user } }) => {
+        if (!user) {
+          router.replace('/auth/login')
+          return
+        }
+        setSession(true)
+        fetchBrands()
+      })
     })
   }, [])
 
@@ -44,8 +52,31 @@ export default function DashboardPage() {
   }
 
   const handleSignOut = async () => {
+    const { createClient } = await import('@/lib/supabase/client')
+    const supabase = createClient()
+    if (!supabase) return
     await supabase.auth.signOut()
     router.replace('/auth/login')
+  }
+
+  if (configError) {
+    return (
+      <div className="flex min-h-full items-center justify-center p-8">
+        <div className="w-full max-w-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm text-center">
+          <div className="text-4xl mb-4">🔐</div>
+          <h1 className="text-xl font-bold tracking-tight mb-2">Dashboard Not Available</h1>
+          <p className="text-sm text-zinc-500">
+            User accounts and brand persistence require Supabase configuration.
+          </p>
+          <button
+            onClick={() => router.push('/')}
+            className="mt-4 px-6 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700"
+          >
+            Back to Brand Generator
+          </button>
+        </div>
+      </div>
+    )
   }
 
   if (session === null || loading) {

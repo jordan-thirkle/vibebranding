@@ -1,47 +1,103 @@
 'use client'
 
-import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { useState, useEffect } from 'react'
+
+type SupabaseState = 'loading' | 'available' | 'unconfigured'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
+  const [supabaseState, setSupabaseState] = useState<SupabaseState>('loading')
 
-  const supabase = createClient()
+  useEffect(() => {
+    const url = typeof window !== 'undefined' && typeof process !== 'undefined'
+      ? (process.env as Record<string, string | undefined>).NEXT_PUBLIC_SUPABASE_URL
+      : undefined
+    setSupabaseState(url && url !== 'placeholder' ? 'available' : 'unconfigured')
+  }, [])
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (supabaseState !== 'available') return
     setLoading(true)
     setMessage('')
     setError('')
 
-    const { error: magicError } = await supabase.auth.signInWithOtp({
-      email,
-      options: { shouldCreateUser: true },
-    })
-
-    if (magicError) {
-      setError(magicError.message)
-    } else {
-      setMessage('Check your email for the magic link')
-      setEmail('')
+    try {
+      const { createClient } = await import('@/lib/supabase/client')
+      const supabase = createClient()
+      if (!supabase) {
+        setError('Supabase is not configured')
+        setLoading(false)
+        return
+      }
+      const { error: magicError } = await supabase.auth.signInWithOtp({
+        email,
+        options: { shouldCreateUser: true },
+      })
+      if (magicError) {
+        setError(magicError.message)
+      } else {
+        setMessage('Check your email for the magic link')
+        setEmail('')
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to initialize auth')
     }
     setLoading(false)
   }
 
   const handleGitHubLogin = async () => {
+    if (supabaseState !== 'available') return
     setLoading(true)
     setError('')
 
-    const { error: ghError } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
-    })
-
-    if (ghError) setError(ghError.message)
+    try {
+      const { createClient } = await import('@/lib/supabase/client')
+      const supabase = createClient()
+      if (!supabase) {
+        setError('Supabase is not configured')
+        setLoading(false)
+        return
+      }
+      const { error: ghError } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: { redirectTo: `${window.location.origin}/auth/callback` },
+      })
+      if (ghError) setError(ghError.message)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to initialize auth')
+    }
     setLoading(false)
+  }
+
+  if (supabaseState === 'loading') {
+    return (
+      <div className="flex min-h-full items-center justify-center p-8">
+        <div className="animate-pulse text-zinc-400">Loading...</div>
+      </div>
+    )
+  }
+
+  if (supabaseState === 'unconfigured') {
+    return (
+      <div className="flex min-h-full items-center justify-center p-8">
+        <div className="w-full max-w-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm text-center">
+          <div className="text-4xl mb-4">🔐</div>
+          <h1 className="text-xl font-bold tracking-tight mb-2">Auth Coming Soon</h1>
+          <p className="text-sm text-zinc-500">
+            User accounts and brand persistence are not yet configured.
+            Set up a Supabase project and add your keys to enable authentication.
+          </p>
+          <p className="mt-4 text-xs text-zinc-400">
+            <code className="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">NEXT_PUBLIC_SUPABASE_URL</code> and{' '}
+            <code className="bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">NEXT_PUBLIC_SUPABASE_ANON_KEY</code>
+          </p>
+        </div>
+      </div>
+    )
   }
 
   return (
