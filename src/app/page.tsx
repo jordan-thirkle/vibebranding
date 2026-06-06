@@ -155,6 +155,12 @@ export default function Home() {
         <div>
           <h1 className="text-lg font-bold tracking-tight">VibeBranding</h1>
           <p className="text-xs text-zinc-500 mt-0.5">AI Brand Identity Generator</p>
+          <a href="/brand" className="mt-2 inline-block text-xs text-blue-500 hover:text-blue-600 underline">
+            Our Brand Identity →
+          </a>
+          <a href="/devlog" className="ml-2 inline-block text-xs text-zinc-400 hover:text-zinc-600 underline">
+            Devlog
+          </a>
         </div>
 
         {/* Stage Progress */}
