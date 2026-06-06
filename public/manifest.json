@@ -1,0 +1,41 @@
+{
+  "name": "VibeBranding",
+  "short_name": "VibeBranding",
+  "description": "AI-driven brand identity generation platform — transform your product idea into a complete brand system.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#2563EB",
+  "orientation": "any",
+  "categories": ["productivity", "design", "business"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-form.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Brand identity generation form"
+    },
+    {
+      "src": "/screenshot-results.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Generated brand identity results"
+    }
+  ]
+}

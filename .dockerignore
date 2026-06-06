@@ -1,0 +1,9 @@
+.next
+.git
+.gitignore
+.env*
+*.md
+node_modules
+coverage
+exports
+.opencode

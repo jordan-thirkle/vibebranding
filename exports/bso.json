@@ -1,0 +1,1476 @@
+{
+  "version": "1.0.0",
+  "product": {
+    "name": "PixelForge",
+    "tagline": "",
+    "description": "An AI-powered design tool that transforms rough sketches into production-ready UI components. Designers draw, PixelForge generates clean code.",
+    "category": "Design Tool / Developer Tool",
+    "audience": {
+      "demographics": "### **Demographics**\n*   **Age Range:** 22–40\n*   **Job Titles:** UI/UX Designer, Frontend Developer, Design Engineer, Product Designer, Creative Technologist.\n*   **Work Environment:** Tech startups, agile product teams, digital agencies, or high-velocity freelance setups.\n*   **Location:** Global/Remote-first, concentrated in tech hubs.\n\n### **Psychographics**\n*   **Core Motivations:** Speed to market, reducing friction between design and development, maintaining creative flow without getting bogged down by repetitive layouts.\n*   **Pain Points:** \n    *   The \"hand-off gap\": Designers' intent getting lost in translation to code.\n    *   Wasting hours redrawing whiteboard sketches into vector shapes in Figma.\n    *   AI tools that generate messy, unusable \"spaghetti\" code.\n*   **Values:** Efficiency, clean architecture, autonomy, and bridges over walls (collaboration over silos).\n\n### **Tech Sophistication**\n*   **High/Expert.** Their daily stack includes Figma, VS Code, GitHub, React/Vue, Tailwind CSS, and AI-assistants like GitHub Copilot or ChatGPT. They understand design systems, component-driven architecture, and responsive design principles.\n\n### **Aesthetics They Trust**\n*   **Visual Style:** Minimalist, high-contrast, dark-mode-first interfaces. They trust brands with precise typography (sans-serif, monospace accents), subtle gradients, and clean borders (think Vercel, Linear, Stripe, or Tailwind CSS).\n*   **UI Patterns:** Keyboard-shortcut-heavy interfaces, command menus (Cmd+K), and lightning-fast transitions.\n\n### **Language They Use**\n*   *\"Production-ready\", \"Clean semantic code\", \"Component library\", \"Design-to-code\", \"High-fidelity\", \"PR (Pull Request)\", \"Tailwind utility classes\", \"Frictionless hand-off\".*\n\n---\n\n## 2. Brand Positioning Statement\n\n> **For** UI/UX designers and frontend developers **who** need to rapidly translate raw visual concepts into functional software, **PixelForge** is the **AI-powered design-to-code tool** that **instantly transforms hand-drawn sketches into clean, production-ready UI components**, **unlike** traditional design tools or generic AI layout generators **which** require tedious manual vector drawing or output bloated, non-semantic code.\n\n---\n\n## 3. Competitive Landscape Analysis\n\n### **1. Figma**\n*   **Brand Positioning:** The collaborative design platform for all product teams.\n*   **Visual Identity:** Bright, multi-colored cursors, friendly geometric shapes, clean white-and-gray interface, highly professional yet accessible.\n*   **Tone of Voice:** Collaborative, empowering, inclusive, and industry-standard.\n*   **Limitation:** While Figma has \"Dev Mode,\" it remains a vector-first design tool. It requires users to manually draw shapes, and its code generation is inspect-only rather than producing ready-to-use, functional component code from a rough sketch.\n\n### **2. Galileo AI**\n*   **Brand Positioning:** Text-to-UI generation for rapid ideation.\n*   **Visual Identity:** Futuristic, dark-themed, minimalist, relying on prompt bars and generative AI aesthetics.\n*   **Tone of Voice:** Visionary, cutting-edge, magical, and efficiency-focused.\n*   **Limitation:** It is primarily text-prompt driven. Translating a specific, nuanced visual sketch via text prompts is difficult and often inaccurate. It lacks the tactile, spatial control of drawing/sketching.\n\n### **3. Uizard**\n*   **Brand Positioning:** Easy-to-use AI design tool for non-designers and product managers to wireframe.\n*   **Visual Identity:** Playful, colorful, friendly, and highly visual.\n*   **Tone of Voice:** Encouraging, simple, democratic (\"design for everyone\").\n*   **Limitation:** It targets beginners and non-technical stakeholders. The code output is not optimized for professional frontend developers, lacking the clean, component-driven architecture and modern framework support (like React + Tailwind) that developers trust.\n\n---\n\n## Brand State Object Integration\n\n```json\n{\n  \"stage\": 2,\n  \"product\": {\n    \"name\": \"PixelForge\",\n    \"category\": \"Design-to-Code Tool\",\n    \"description\": \"An AI-powered design tool that transforms rough sketches into production-ready UI components.\"\n  },\n  \"positioning\": {\n    \"target_audience\": \"UI/UX designers and frontend developers, age 22-40, tech-savvy\",\n    \"statement\": \"For UI/UX designers and frontend developers who need to rapidly translate raw visual concepts into functional software, PixelForge is the AI-powered design-to-code tool that instantly transforms hand-drawn sketches into clean, production-ready UI components, unlike traditional design tools or generic AI layout generators which require tedious manual vector drawing or output bloated, non-semantic code.\"\n  },\n  \"audience_persona\": {\n    \"archetype\": \"The Design Engineer\",\n    \"demographics\": {\n      \"age\": \"22-40\",\n      \"roles\": [\"UI/UX Designer\", \"Frontend Developer\", \"Design Engineer\"]\n    },\n    \"psychographics\": {\n      \"motivations\": [\"Speed to market\", \"Maintaining creative flow\", \"Frictionless hand-off\"],\n      \"pain_points\": [\"Tedious redrawing in Figma\", \"Bloated AI-generated code\", \"Communication gap between design and dev\"]\n    },\n    \"trust_factors\": {\n      \"aesthetics\": \"Minimalist, dark-mode, high-contrast, developer-centric (e.g., Linear, Vercel)\",\n      \"tech_sophistication\": \"High (React, Tailwind, VS Code, Git)\"\n    }\n  },\n  \"competitors\": [\n    {\n      \"name\": \"Figma\",\n      \"strength\": \"Industry standard, highly collaborative.\",\n      \"limitation\": \"Manual vector drawing required; code output is static and inspect-only.\"\n    },\n    {\n      \"name\": \"Galileo AI\",\n      \"strength\": \"Generates high-fidelity UI from text prompts.\",\n      \"limitation\": \"Lacks spatial/visual input control; hard to refine specific sketched layouts.\"\n    },\n    {\n      \"name\": \"Uizard\",\n      \"strength\": \"Very accessible for beginners and rapid wireframing.\",\n      \"limitation\": \"Code quality is not developer-grade; targeted at non-designers.\"\n    }\n  ]\n}\n```",
+      "psychographics": "",
+      "techSophistication": "medium"
+    },
+    "competitors": [
+      {
+        "name": "Figma",
+        "notes": ""
+      },
+      {
+        "name": "Galileo AI",
+        "notes": ""
+      },
+      {
+        "name": "Uizard",
+        "notes": ""
+      }
+    ]
+  },
+  "strategy": {
+    "positioning": "For UI/UX designers and frontend developers, age 22-40, tech-savvy who need An AI-powered design tool that transforms rough sk, PixelForge is the Design Tool / Developer Tool that delivers exceptional value.",
+    "personalityArchetypes": [
+      {
+        "archetype": "Creator",
+        "weight": 100,
+        "rationale": "If it can be imagined, it can be created — To create things of enduring value"
+      },
+      {
+        "archetype": "Magician",
+        "weight": 85,
+        "rationale": "It can happen — To understand how things work and make dreams come true"
+      }
+    ],
+    "personalitySpectrum": {
+      "excitingVsCalm": 75,
+      "modernVsClassic": 75,
+      "playfulVsSerious": 58,
+      "accessibleVsExclusive": 50,
+      "boldVsUnderstated": 63
+    },
+    "brandValues": [
+      "1. Developer",
+      "In Action"
+    ],
+    "toneOfVoice": {
+      "formalToCasual": 53,
+      "seriousToWitty": 53,
+      "authoritativeToApproachable": 50,
+      "conventionalToIrreverent": 50
+    },
+    "emotionalTerritory": "Frictionless Flow"
+  },
+  "visualIdentity": {
+    "colourSystem": {
+      "harmonyType": "triadic",
+      "primaryColour": "#2563EB",
+      "secondaryColour": "#eb2463",
+      "accentColour": "#63eb24",
+      "neutralScale": [
+        {
+          "name": "50",
+          "hex": "#f7f7f8",
+          "hsl": "",
+          "role": "Neutral 50",
+          "lightMode": "#f7f7f8",
+          "darkMode": "#15151e"
+        },
+        {
+          "name": "100",
+          "hex": "#f2f2f3",
+          "hsl": "",
+          "role": "Neutral 100",
+          "lightMode": "#f2f2f3",
+          "darkMode": "#16161d"
+        },
+        {
+          "name": "200",
+          "hex": "#e5e5e6",
+          "hsl": "",
+          "role": "Neutral 200",
+          "lightMode": "#e5e5e6",
+          "darkMode": "#16161d"
+        },
+        {
+          "name": "300",
+          "hex": "#d0d1d2",
+          "hsl": "",
+          "role": "Neutral 300",
+          "lightMode": "#d0d1d2",
+          "darkMode": "#282e33"
+        },
+        {
+          "name": "400",
+          "hex": "#b0b2b5",
+          "hsl": "",
+          "role": "Neutral 400",
+          "lightMode": "#b0b2b5",
+          "darkMode": "#4a4c4f"
+        },
+        {
+          "name": "500",
+          "hex": "#898b90",
+          "hsl": "",
+          "role": "Neutral 500",
+          "lightMode": "#898b90",
+          "darkMode": "#6f7176"
+        },
+        {
+          "name": "600",
+          "hex": "#686a6e",
+          "hsl": "",
+          "role": "Neutral 600",
+          "lightMode": "#686a6e",
+          "darkMode": "#919397"
+        },
+        {
+          "name": "700",
+          "hex": "#525357",
+          "hsl": "",
+          "role": "Neutral 700",
+          "lightMode": "#525357",
+          "darkMode": "#a8a9ad"
+        },
+        {
+          "name": "800",
+          "hex": "#36373a",
+          "hsl": "",
+          "role": "Neutral 800",
+          "lightMode": "#36373a",
+          "darkMode": "#cdcfd6"
+        },
+        {
+          "name": "900",
+          "hex": "#202122",
+          "hsl": "",
+          "role": "Neutral 900",
+          "lightMode": "#202122",
+          "darkMode": "#b3bac1"
+        },
+        {
+          "name": "950",
+          "hex": "#0c0d0d",
+          "hsl": "",
+          "role": "Neutral 950",
+          "lightMode": "#0c0d0d",
+          "darkMode": "#9dafaf"
+        }
+      ],
+      "semanticColours": [
+        {
+          "name": "success",
+          "hex": "#10B981",
+          "hsl": "",
+          "role": "Success",
+          "lightMode": "#10B981",
+          "darkMode": "#34D399"
+        },
+        {
+          "name": "warning",
+          "hex": "#F59E0B",
+          "hsl": "",
+          "role": "Warning",
+          "lightMode": "#F59E0B",
+          "darkMode": "#FBBF24"
+        },
+        {
+          "name": "error",
+          "hex": "#EF4444",
+          "hsl": "",
+          "role": "Error",
+          "lightMode": "#EF4444",
+          "darkMode": "#F87171"
+        },
+        {
+          "name": "info",
+          "hex": "#3B82F6",
+          "hsl": "",
+          "role": "Info",
+          "lightMode": "#3B82F6",
+          "darkMode": "#60A5FA"
+        }
+      ],
+      "surfaceColours": [
+        {
+          "name": "1",
+          "hex": "#FFFFFF",
+          "hsl": "",
+          "role": "Surface 1",
+          "lightMode": "#FFFFFF",
+          "darkMode": "#36373a"
+        },
+        {
+          "name": "2",
+          "hex": "#f7f7f8",
+          "hsl": "",
+          "role": "Surface 2",
+          "lightMode": "#f7f7f8",
+          "darkMode": "#525357"
+        },
+        {
+          "name": "3",
+          "hex": "#f2f2f3",
+          "hsl": "",
+          "role": "Surface 3",
+          "lightMode": "#f2f2f3",
+          "darkMode": "#686a6e"
+        },
+        {
+          "name": "4",
+          "hex": "#e5e5e6",
+          "hsl": "",
+          "role": "Surface 4",
+          "lightMode": "#e5e5e6",
+          "darkMode": "#898b90"
+        },
+        {
+          "name": "5",
+          "hex": "#d0d1d2",
+          "hsl": "",
+          "role": "Surface 5",
+          "lightMode": "#d0d1d2",
+          "darkMode": "#b0b2b5"
+        }
+      ],
+      "textColours": [
+        {
+          "name": "primary",
+          "hex": "#36373a",
+          "hsl": "",
+          "role": "Text primary",
+          "lightMode": "#0F172A",
+          "darkMode": "#F8FAFC"
+        },
+        {
+          "name": "secondary",
+          "hex": "#898b90",
+          "hsl": "",
+          "role": "Text secondary",
+          "lightMode": "#475569",
+          "darkMode": "#94A3B8"
+        },
+        {
+          "name": "disabled",
+          "hex": "#d0d1d2",
+          "hsl": "",
+          "role": "Text disabled",
+          "lightMode": "#94A3B8",
+          "darkMode": "#64748B"
+        }
+      ],
+      "distribution": {
+        "primaryPercent": 60,
+        "secondaryPercent": 30,
+        "accentPercent": 10
+      },
+      "wcagReport": {
+        "overall": "pass",
+        "checks": [
+          {
+            "foreground": "#0F172A",
+            "background": "#FFFFFF",
+            "contrastRatio": 17.85253496299567,
+            "normalTextPass": true,
+            "largeTextPass": true
+          },
+          {
+            "foreground": "#FFFFFF",
+            "background": "#2563EB",
+            "contrastRatio": 5.168555560022562,
+            "normalTextPass": true,
+            "largeTextPass": true
+          }
+        ]
+      },
+      "tokens": {
+        "css": "  --color-brand-primary: #2563EB;\n  --color-brand-secondary: #eb2463;\n  --color-accent: #63eb24;",
+        "tailwind": "",
+        "scss": ""
+      }
+    },
+    "typography": {
+      "displayFont": {
+        "name": "DM Sans",
+        "classification": "geometric_sans",
+        "source": "google",
+        "weights": [
+          400,
+          500,
+          700
+        ],
+        "isVariable": true,
+        "fallbackStack": "'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif",
+        "rationale": "Modern, tech-forward brands. Clean geometric forms.",
+        "embedCode": "@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');"
+      },
+      "textFont": {
+        "name": "Source Sans 3",
+        "classification": "humanist_sans",
+        "source": "google",
+        "weights": [
+          200,
+          300,
+          400,
+          500,
+          600,
+          700,
+          900
+        ],
+        "isVariable": true,
+        "fallbackStack": "'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif",
+        "rationale": "Accessible, human-centric brands. Great body text.",
+        "embedCode": "@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;500;600;700;900&display=swap');"
+      },
+      "monoFont": {
+        "name": "JetBrains Mono",
+        "classification": "mono",
+        "source": "google",
+        "weights": [
+          400,
+          500,
+          700
+        ],
+        "isVariable": true,
+        "fallbackStack": "'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace",
+        "rationale": "Developer tool — mono font for code and data displays"
+      },
+      "typeScale": {
+        "ratio": 1.414,
+        "ratioName": "augmented_fourth",
+        "sizes": [
+          {
+            "name": "xs",
+            "sizePx": 8,
+            "sizeRem": 0.5,
+            "lineHeight": 1.5,
+            "usage": "Captions, legal text, fine print"
+          },
+          {
+            "name": "sm",
+            "sizePx": 11,
+            "sizeRem": 0.688,
+            "lineHeight": 1.5,
+            "usage": "Body small, labels, metadata"
+          },
+          {
+            "name": "base",
+            "sizePx": 16,
+            "sizeRem": 1,
+            "lineHeight": 1.5,
+            "usage": "Body text, paragraphs, UI copy"
+          },
+          {
+            "name": "lg",
+            "sizePx": 23,
+            "sizeRem": 1.438,
+            "lineHeight": 1.3,
+            "usage": "Lead paragraphs, featured text"
+          },
+          {
+            "name": "xl",
+            "sizePx": 32,
+            "sizeRem": 2,
+            "lineHeight": 1.3,
+            "usage": "Section headings, card titles"
+          },
+          {
+            "name": "2xl",
+            "sizePx": 45,
+            "sizeRem": 2.813,
+            "lineHeight": 1.2,
+            "usage": "Page headings, section titles"
+          },
+          {
+            "name": "3xl",
+            "sizePx": 64,
+            "sizeRem": 4,
+            "lineHeight": 1.1,
+            "usage": "Hero subheadings"
+          },
+          {
+            "name": "4xl",
+            "sizePx": 90,
+            "sizeRem": 5.625,
+            "lineHeight": 1.1,
+            "usage": "Hero headlines"
+          },
+          {
+            "name": "display",
+            "sizePx": 128,
+            "sizeRem": 8,
+            "lineHeight": 1.1,
+            "usage": "Marketing display text (clamp-based)"
+          }
+        ]
+      },
+      "pairingRationale": "DM Sans (geometric_sans) + Source Sans 3 (humanist_sans): Modern, tech-forward brands. Clean geometric forms.",
+      "tokens": {
+        "css": "  --font-display: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;\n  --font-text: 'Source Sans 3', system-ui, -apple-system, 'Segoe UI', sans-serif;\n  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;",
+        "tailwind": ""
+      }
+    }
+  },
+  "verbalIdentity": {
+    "naming": {
+      "candidates": [
+        {
+          "name": "Velo",
+          "approach": "invented",
+          "rationale": "Phonetic score: 10/10, 2 syllables, rhythm: ¯˘¯˘",
+          "scores": {
+            "phonetics": 10,
+            "memorability": 7,
+            "distinctiveness": 7,
+            "overall": 9
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        },
+        {
+          "name": "Pixel",
+          "approach": "invented",
+          "rationale": "Phonetic score: 10/10, 2 syllables, rhythm: ¯˘¯˘¯",
+          "scores": {
+            "phonetics": 10,
+            "memorability": 7,
+            "distinctiveness": 7,
+            "overall": 9
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        },
+        {
+          "name": "Frictionless",
+          "approach": "invented",
+          "rationale": "Phonetic score: 10/10, 3 syllables, rhythm: ¯¯˘¯¯˘˘¯¯˘¯¯",
+          "scores": {
+            "phonetics": 10,
+            "memorability": 6,
+            "distinctiveness": 6,
+            "overall": 8
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        },
+        {
+          "name": "Syntax",
+          "approach": "invented",
+          "rationale": "Phonetic score: 8/10, 2 syllables, rhythm: ¯¯¯¯˘¯",
+          "scores": {
+            "phonetics": 8,
+            "memorability": 7,
+            "distinctiveness": 7,
+            "overall": 8
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        },
+        {
+          "name": "Ultra",
+          "approach": "invented",
+          "rationale": "Phonetic score: 8/10, 2 syllables, rhythm: ˘¯¯¯˘",
+          "scores": {
+            "phonetics": 8,
+            "memorability": 7,
+            "distinctiveness": 7,
+            "overall": 8
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        },
+        {
+          "name": "Sketch",
+          "approach": "invented",
+          "rationale": "Phonetic score: 6/10, 1 syllables, rhythm: ¯¯˘¯¯¯",
+          "scores": {
+            "phonetics": 6,
+            "memorability": 7,
+            "distinctiveness": 7,
+            "overall": 7
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        },
+        {
+          "name": "Swift",
+          "approach": "invented",
+          "rationale": "Phonetic score: 7/10, 1 syllables, rhythm: ¯¯˘¯¯",
+          "scores": {
+            "phonetics": 7,
+            "memorability": 7,
+            "distinctiveness": 7,
+            "overall": 7
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        },
+        {
+          "name": "Structure",
+          "approach": "invented",
+          "rationale": "Phonetic score: 8/10, 3 syllables, rhythm: ¯¯¯˘¯¯˘¯˘",
+          "scores": {
+            "phonetics": 8,
+            "memorability": 5,
+            "distinctiveness": 5,
+            "overall": 7
+          },
+          "availability": {
+            "dotCom": true,
+            "dotIo": true,
+            "dotApp": true,
+            "socialHandles": {
+              "twitter": true,
+              "github": true,
+              "instagram": true,
+              "linkedin": true
+            }
+          },
+          "trademarkRisk": "low",
+          "negativeMeanings": []
+        }
+      ],
+      "recommended": 0
+    },
+    "taglines": [
+      {
+        "text": "Frictionless Flow",
+        "approach": "benefit_led",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "doodles",
+        "approach": "emotion_led",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "production code.",
+        "approach": "imperative",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "Compile",
+        "approach": "question",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "Deploy",
+        "approach": "positioning_condensed",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "production-ready UI",
+        "approach": "benefit_led",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "builder.",
+        "approach": "emotion_led",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "*   *Compile Failure:*",
+        "approach": "imperative",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "*   *Invalid File:*",
+        "approach": "question",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "*   *Empty Code Panel:*",
+        "approach": "benefit_led",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "*   *Framework Selector:*",
+        "approach": "imperative",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "*   *GitHub Sync:*",
+        "approach": "positioning_condensed",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "*   *Compiling:*",
+        "approach": "emotion_led",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "*   *Refining:*",
+        "approach": "imperative",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "templates",
+        "approach": "question",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": "themes,",
+        "approach": "positioning_condensed",
+        "scores": {
+          "memorability": 7,
+          "originality": 7,
+          "brandFit": 8,
+          "searchability": 6,
+          "internationalLegibility": 7
+        }
+      },
+      {
+        "text": ". Sketch today. Ship tonight.",
+        "approach": "emotion_led",
+        "scores": {
+          "memorability": 6,
+          "originality": 6,
+          "brandFit": 7,
+          "searchability": 5,
+          "internationalLegibility": 6
+        }
+      },
+      {
+        "text": "Memorability: 9/10 | Originality: 7/10 | Brand Fit: 9/10",
+        "approach": "imperative",
+        "scores": {
+          "memorability": 6,
+          "originality": 6,
+          "brandFit": 7,
+          "searchability": 5,
+          "internationalLegibility": 6
+        }
+      },
+      {
+        "text": ". From whiteboard to React in seconds.",
+        "approach": "question",
+        "scores": {
+          "memorability": 6,
+          "originality": 6,
+          "brandFit": 7,
+          "searchability": 5,
+          "internationalLegibility": 6
+        }
+      },
+      {
+        "text": "Memorability: 8/10 | Originality: 8/10 | Brand Fit: 10/10",
+        "approach": "positioning_condensed",
+        "scores": {
+          "memorability": 6,
+          "originality": 6,
+          "brandFit": 7,
+          "searchability": 5,
+          "internationalLegibility": 6
+        }
+      }
+    ],
+    "messagingHierarchy": {
+      "heroHeadline": "> Draw the UI. We’ll write the React.",
+      "subHeadline": "> Transform hand-drawn wireframes into clean, component-driven frontend code. No bloated layouts, no manual vector tracing—just pure Tailwind and React.",
+      "bodyDescription": "> PixelForge bridges the gap between raw visual concepts and functional software. Draw your layout directly on our digital canvas or upload a whiteboard photo. Our engine instantly generates clean, semantic, production-ready UI components, letting you maintain your creative flow and ship layouts directly to your codebase without the tedious Figma-to-code translation.",
+      "primaryCTA": "> Generate UI Free",
+      "secondaryCTA": "Learn More",
+      "featureHeadlines": [
+        "Clean, semantic code output (Focuses on code quality)",
+        "Whiteboard to React instantly (Focuses on input versatility)",
+        "Zero vector redrawing needed (Focuses on time saved)",
+        "Tailwind-first component styling (Focuses on modern tech stack alignment)"
+      ]
+    },
+    "copyExamples": {
+      "toneVariations": {
+        "onBrand": [
+          "Experience PixelForge"
+        ],
+        "tooFormal": [],
+        "tooCasual": []
+      },
+      "microcopy": {
+        "buttonLabels": {
+          "primary": "> Generate UI Free",
+          "secondary": "Learn More",
+          "destructive": "Delete"
+        },
+        "errorMessages": {
+          "validation": "Please check your input and try again.",
+          "notFound": "We couldn't find what you're looking for.",
+          "serverError": "Something went wrong. We're on it."
+        },
+        "emptyStates": {
+          "noData": "Nothing here yet. Let's change that.",
+          "noResults": "No results found. Try a different search.",
+          "noNotifications": "All caught up! We'll let you know when something happens."
+        },
+        "onboardingTooltips": {
+          "welcome": "Welcome! Let's get you set up.",
+          "firstStep": "Start here to get going in under 2 minutes."
+        },
+        "successStates": {
+          "confirmation": "Done! That went perfectly.",
+          "completion": "All set. Ready for what's next?"
+        },
+        "loadingStates": {
+          "skeleton": "Loading...",
+          "progress": "Almost there..."
+        }
+      },
+      "brandVocabulary": {
+        "ownedWords": [
+          "PixelForge",
+          "1. Developer",
+          "In Action"
+        ],
+        "avoidedWords": [
+          "revolutionary",
+          "game-changing",
+          "seamless",
+          "innovative",
+          "cutting-edge",
+          "disruptive",
+          "next-gen",
+          "world-class",
+          "leverage",
+          "synergy",
+          "paradigm"
+        ],
+        "namingConventions": "Features: descriptive names. Tiers: PixelForge Free, PixelForge Pro, PixelForge Enterprise."
+      }
+    }
+  },
+  "assets": {
+    "generated": [],
+    "exportFormats": []
+  },
+  "metadata": {
+    "createdAt": "2026-06-05T20:19:28.998Z",
+    "updatedAt": "2026-06-05T20:20:50.132Z",
+    "stage": 5,
+    "history": [
+      {
+        "timestamp": "2026-06-05T20:19:29.001Z",
+        "stage": 1,
+        "message": "Updated product",
+        "snapshot": {
+          "product": {
+            "name": "",
+            "tagline": "",
+            "description": "",
+            "category": "",
+            "audience": {
+              "demographics": "",
+              "psychographics": "",
+              "techSophistication": "medium"
+            },
+            "competitors": []
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-05T20:19:42.696Z",
+        "stage": 1,
+        "message": "Updated strategy",
+        "snapshot": {
+          "strategy": {
+            "positioning": "",
+            "personalityArchetypes": [],
+            "personalitySpectrum": {
+              "excitingVsCalm": 50,
+              "modernVsClassic": 50,
+              "playfulVsSerious": 50,
+              "accessibleVsExclusive": 50,
+              "boldVsUnderstated": 50
+            },
+            "brandValues": [],
+            "toneOfVoice": {
+              "formalToCasual": 50,
+              "seriousToWitty": 50,
+              "authoritativeToApproachable": 50,
+              "conventionalToIrreverent": 50
+            },
+            "emotionalTerritory": ""
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-05T20:19:42.696Z",
+        "stage": 1,
+        "message": "Updated product",
+        "snapshot": {
+          "product": {
+            "name": "PixelForge",
+            "tagline": "",
+            "description": "An AI-powered design tool that transforms rough sketches into production-ready UI components. Designers draw, PixelForge generates clean code.",
+            "category": "Design Tool / Developer Tool",
+            "audience": {
+              "demographics": "UI/UX designers and frontend developers, age 22-40, tech-savvy",
+              "psychographics": "",
+              "techSophistication": "medium"
+            },
+            "competitors": [
+              {
+                "name": "Figma",
+                "notes": ""
+              },
+              {
+                "name": "Galileo AI",
+                "notes": ""
+              },
+              {
+                "name": "Uizard",
+                "notes": ""
+              }
+            ]
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-05T20:20:04.929Z",
+        "stage": 2,
+        "message": "Updated strategy",
+        "snapshot": {
+          "strategy": {
+            "positioning": "For UI/UX designers and frontend developers, age 22-40, tech-savvy who need An AI-powered design tool that transforms rough sk, PixelForge is the Design Tool / Developer Tool that delivers exceptional value.",
+            "personalityArchetypes": [],
+            "personalitySpectrum": {
+              "excitingVsCalm": 50,
+              "modernVsClassic": 50,
+              "playfulVsSerious": 50,
+              "accessibleVsExclusive": 50,
+              "boldVsUnderstated": 50
+            },
+            "brandValues": [],
+            "toneOfVoice": {
+              "formalToCasual": 50,
+              "seriousToWitty": 50,
+              "authoritativeToApproachable": 50,
+              "conventionalToIrreverent": 50
+            },
+            "emotionalTerritory": ""
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-05T20:20:25.720Z",
+        "stage": 3,
+        "message": "Updated verbalIdentity",
+        "snapshot": {
+          "verbalIdentity": {}
+        }
+      },
+      {
+        "timestamp": "2026-06-05T20:20:25.726Z",
+        "stage": 4,
+        "message": "Updated visualIdentity",
+        "snapshot": {
+          "visualIdentity": {}
+        }
+      },
+      {
+        "timestamp": "2026-06-05T20:20:25.729Z",
+        "stage": 4,
+        "message": "Updated visualIdentity",
+        "snapshot": {
+          "visualIdentity": {
+            "colourSystem": {
+              "harmonyType": "triadic",
+              "primaryColour": "#2563EB",
+              "secondaryColour": "#eb2463",
+              "accentColour": "#63eb24",
+              "neutralScale": [
+                {
+                  "name": "50",
+                  "hex": "#f7f7f8",
+                  "hsl": "",
+                  "role": "Neutral 50",
+                  "lightMode": "#f7f7f8",
+                  "darkMode": "#15151e"
+                },
+                {
+                  "name": "100",
+                  "hex": "#f2f2f3",
+                  "hsl": "",
+                  "role": "Neutral 100",
+                  "lightMode": "#f2f2f3",
+                  "darkMode": "#16161d"
+                },
+                {
+                  "name": "200",
+                  "hex": "#e5e5e6",
+                  "hsl": "",
+                  "role": "Neutral 200",
+                  "lightMode": "#e5e5e6",
+                  "darkMode": "#16161d"
+                },
+                {
+                  "name": "300",
+                  "hex": "#d0d1d2",
+                  "hsl": "",
+                  "role": "Neutral 300",
+                  "lightMode": "#d0d1d2",
+                  "darkMode": "#282e33"
+                },
+                {
+                  "name": "400",
+                  "hex": "#b0b2b5",
+                  "hsl": "",
+                  "role": "Neutral 400",
+                  "lightMode": "#b0b2b5",
+                  "darkMode": "#4a4c4f"
+                },
+                {
+                  "name": "500",
+                  "hex": "#898b90",
+                  "hsl": "",
+                  "role": "Neutral 500",
+                  "lightMode": "#898b90",
+                  "darkMode": "#6f7176"
+                },
+                {
+                  "name": "600",
+                  "hex": "#686a6e",
+                  "hsl": "",
+                  "role": "Neutral 600",
+                  "lightMode": "#686a6e",
+                  "darkMode": "#919397"
+                },
+                {
+                  "name": "700",
+                  "hex": "#525357",
+                  "hsl": "",
+                  "role": "Neutral 700",
+                  "lightMode": "#525357",
+                  "darkMode": "#a8a9ad"
+                },
+                {
+                  "name": "800",
+                  "hex": "#36373a",
+                  "hsl": "",
+                  "role": "Neutral 800",
+                  "lightMode": "#36373a",
+                  "darkMode": "#cdcfd6"
+                },
+                {
+                  "name": "900",
+                  "hex": "#202122",
+                  "hsl": "",
+                  "role": "Neutral 900",
+                  "lightMode": "#202122",
+                  "darkMode": "#b3bac1"
+                },
+                {
+                  "name": "950",
+                  "hex": "#0c0d0d",
+                  "hsl": "",
+                  "role": "Neutral 950",
+                  "lightMode": "#0c0d0d",
+                  "darkMode": "#9dafaf"
+                }
+              ],
+              "semanticColours": [
+                {
+                  "name": "success",
+                  "hex": "#10B981",
+                  "hsl": "",
+                  "role": "Success",
+                  "lightMode": "#10B981",
+                  "darkMode": "#34D399"
+                },
+                {
+                  "name": "warning",
+                  "hex": "#F59E0B",
+                  "hsl": "",
+                  "role": "Warning",
+                  "lightMode": "#F59E0B",
+                  "darkMode": "#FBBF24"
+                },
+                {
+                  "name": "error",
+                  "hex": "#EF4444",
+                  "hsl": "",
+                  "role": "Error",
+                  "lightMode": "#EF4444",
+                  "darkMode": "#F87171"
+                },
+                {
+                  "name": "info",
+                  "hex": "#3B82F6",
+                  "hsl": "",
+                  "role": "Info",
+                  "lightMode": "#3B82F6",
+                  "darkMode": "#60A5FA"
+                }
+              ],
+              "surfaceColours": [
+                {
+                  "name": "1",
+                  "hex": "#FFFFFF",
+                  "hsl": "",
+                  "role": "Surface 1",
+                  "lightMode": "#FFFFFF",
+                  "darkMode": "#36373a"
+                },
+                {
+                  "name": "2",
+                  "hex": "#f7f7f8",
+                  "hsl": "",
+                  "role": "Surface 2",
+                  "lightMode": "#f7f7f8",
+                  "darkMode": "#525357"
+                },
+                {
+                  "name": "3",
+                  "hex": "#f2f2f3",
+                  "hsl": "",
+                  "role": "Surface 3",
+                  "lightMode": "#f2f2f3",
+                  "darkMode": "#686a6e"
+                },
+                {
+                  "name": "4",
+                  "hex": "#e5e5e6",
+                  "hsl": "",
+                  "role": "Surface 4",
+                  "lightMode": "#e5e5e6",
+                  "darkMode": "#898b90"
+                },
+                {
+                  "name": "5",
+                  "hex": "#d0d1d2",
+                  "hsl": "",
+                  "role": "Surface 5",
+                  "lightMode": "#d0d1d2",
+                  "darkMode": "#b0b2b5"
+                }
+              ],
+              "textColours": [
+                {
+                  "name": "primary",
+                  "hex": "#36373a",
+                  "hsl": "",
+                  "role": "Text primary",
+                  "lightMode": "#0F172A",
+                  "darkMode": "#F8FAFC"
+                },
+                {
+                  "name": "secondary",
+                  "hex": "#898b90",
+                  "hsl": "",
+                  "role": "Text secondary",
+                  "lightMode": "#475569",
+                  "darkMode": "#94A3B8"
+                },
+                {
+                  "name": "disabled",
+                  "hex": "#d0d1d2",
+                  "hsl": "",
+                  "role": "Text disabled",
+                  "lightMode": "#94A3B8",
+                  "darkMode": "#64748B"
+                }
+              ],
+              "distribution": {
+                "primaryPercent": 60,
+                "secondaryPercent": 30,
+                "accentPercent": 10
+              },
+              "wcagReport": {
+                "overall": "pass",
+                "checks": [
+                  {
+                    "foreground": "#0F172A",
+                    "background": "#FFFFFF",
+                    "contrastRatio": 17.85253496299567,
+                    "normalTextPass": true,
+                    "largeTextPass": true
+                  },
+                  {
+                    "foreground": "#FFFFFF",
+                    "background": "#2563EB",
+                    "contrastRatio": 5.168555560022562,
+                    "normalTextPass": true,
+                    "largeTextPass": true
+                  }
+                ]
+              },
+              "tokens": {
+                "css": "  --color-brand-primary: #2563EB;\n  --color-brand-secondary: #eb2463;\n  --color-accent: #63eb24;",
+                "tailwind": "",
+                "scss": ""
+              }
+            }
+          }
+        }
+      },
+      {
+        "timestamp": "2026-06-05T20:20:50.132Z",
+        "stage": 4,
+        "message": "Updated verbalIdentity",
+        "snapshot": {
+          "verbalIdentity": {
+            "naming": {
+              "candidates": [
+                {
+                  "name": "Velo",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 10/10, 2 syllables, rhythm: ¯˘¯˘",
+                  "scores": {
+                    "phonetics": 10,
+                    "memorability": 7,
+                    "distinctiveness": 7,
+                    "overall": 9
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                },
+                {
+                  "name": "Pixel",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 10/10, 2 syllables, rhythm: ¯˘¯˘¯",
+                  "scores": {
+                    "phonetics": 10,
+                    "memorability": 7,
+                    "distinctiveness": 7,
+                    "overall": 9
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                },
+                {
+                  "name": "Frictionless",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 10/10, 3 syllables, rhythm: ¯¯˘¯¯˘˘¯¯˘¯¯",
+                  "scores": {
+                    "phonetics": 10,
+                    "memorability": 6,
+                    "distinctiveness": 6,
+                    "overall": 8
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                },
+                {
+                  "name": "Syntax",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 8/10, 2 syllables, rhythm: ¯¯¯¯˘¯",
+                  "scores": {
+                    "phonetics": 8,
+                    "memorability": 7,
+                    "distinctiveness": 7,
+                    "overall": 8
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                },
+                {
+                  "name": "Ultra",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 8/10, 2 syllables, rhythm: ˘¯¯¯˘",
+                  "scores": {
+                    "phonetics": 8,
+                    "memorability": 7,
+                    "distinctiveness": 7,
+                    "overall": 8
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                },
+                {
+                  "name": "Sketch",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 6/10, 1 syllables, rhythm: ¯¯˘¯¯¯",
+                  "scores": {
+                    "phonetics": 6,
+                    "memorability": 7,
+                    "distinctiveness": 7,
+                    "overall": 7
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                },
+                {
+                  "name": "Swift",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 7/10, 1 syllables, rhythm: ¯¯˘¯¯",
+                  "scores": {
+                    "phonetics": 7,
+                    "memorability": 7,
+                    "distinctiveness": 7,
+                    "overall": 7
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                },
+                {
+                  "name": "Structure",
+                  "approach": "invented",
+                  "rationale": "Phonetic score: 8/10, 3 syllables, rhythm: ¯¯¯˘¯¯˘¯˘",
+                  "scores": {
+                    "phonetics": 8,
+                    "memorability": 5,
+                    "distinctiveness": 5,
+                    "overall": 7
+                  },
+                  "availability": {
+                    "dotCom": true,
+                    "dotIo": true,
+                    "dotApp": true,
+                    "socialHandles": {
+                      "twitter": true,
+                      "github": true,
+                      "instagram": true,
+                      "linkedin": true
+                    }
+                  },
+                  "trademarkRisk": "low",
+                  "negativeMeanings": []
+                }
+              ],
+              "recommended": 0
+            }
+          }
+        }
+      }
+    ]
+  }
+}

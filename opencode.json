@@ -1,0 +1,70 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md"],
+  "model": "google/gemini-2.5-flash",
+  "small_model": "google/gemini-2.5-flash",
+  "formatter": {
+    "*.{ts,tsx,js,jsx,json,jsonc,css,md}": {
+      "command": ["npx", "prettier", "--write"],
+      "extensions": ["ts", "tsx", "js", "jsx", "json", "jsonc", "css", "md"]
+    }
+  },
+  "plugin": [
+    "opencode-gemini-auth",
+    "opencode-firecrawl",
+    "opencode-background-agents",
+    "opencode-notify",
+    "opencode-morph-fast-apply"
+  ],
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp"],
+      "enabled": true,
+      "timeout": 30000
+    },
+    "brave-search": {
+      "type": "local",
+      "command": ["npx", "-y", "@anthropic/mcp-server-brave-search"],
+      "enabled": true,
+      "environment": {
+        "BRAVE_API_KEY": "{env:BRAVE_API_KEY}"
+      }
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    }
+  },
+  "permission": {
+    "edit": "allow",
+    "bash": {
+      "*": "ask",
+      "git status": "allow",
+      "git diff": "allow",
+      "git log *": "allow",
+      "npm test": "allow",
+      "npm run *": "allow",
+      "npx *": "allow",
+      "node *": "allow",
+      "tsx *": "allow"
+    },
+    "webfetch": "allow",
+    "websearch": "allow"
+  },
+  "agent": {
+    "plan": {
+      "model": "google/gemini-2.5-pro",
+      "temperature": 0.1
+    },
+    "build": {
+      "model": "google/gemini-2.5-pro",
+      "temperature": 0.3
+    }
+  },
+  "compaction": {
+    "auto": true,
+    "tail_turns": 5
+  }
+}
