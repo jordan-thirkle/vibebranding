@@ -34,13 +34,13 @@ export const metadata: Metadata = {
     siteName: "VibeBranding",
     url: "https://vibebranding.vercel.app",
     locale: "en_US",
-    images: [{ url: "https://vibebranding.vercel.app/opengraph-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://vibebranding.vercel.app/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "VibeBranding — AI Brand Identity Generator",
     description: "Transform your product idea into a complete, production-ready brand identity — naming, visual identity, voice, and launch assets — powered by AI.",
-    images: ["https://vibebranding.vercel.app/twitter-image.png"],
+    images: ["https://vibebranding.vercel.app/twitter-image"],
   },
   robots: {
     index: true,
