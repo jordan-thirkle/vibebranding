@@ -19,10 +19,10 @@ export default function BrandPage() {
           <h1 className="text-5xl font-bold tracking-tight sm:text-6xl mb-4">
             VibeBranding
           </h1>
-          <p className="text-xl text-blue-100/90 font-medium mb-8">
+          <p className="text-xl text-blue-100 font-medium mb-8">
             Our Brand Identity — Built with VibeBranding
           </p>
-          <div className="flex items-center justify-center gap-6 text-sm text-blue-200/80">
+          <div className="flex items-center justify-center gap-6 text-sm text-blue-200">
             <span>✨ Self-branding case study</span>
             <span>🎯 Creator + Sage archetypes</span>
             <span>🎨 AI-generated identity</span>
@@ -40,7 +40,7 @@ export default function BrandPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Archetypes</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Archetypes</span>
               <div className="flex flex-wrap gap-2 mt-3">
                 <span className="px-3 py-1.5 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm font-medium">
                   Creator 100%
@@ -55,7 +55,7 @@ export default function BrandPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Emotional Territory</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Emotional Territory</span>
               <p className="text-xl font-bold mt-2 italic">Flow-State Craftsmanship</p>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
                 The feeling of being in the zone while making something beautiful. Calm focus, creative confidence, and the satisfaction of a well-crafted brand.
@@ -63,7 +63,7 @@ export default function BrandPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Brand Values</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Brand Values</span>
               <div className="flex flex-wrap gap-1.5 mt-3">
                 {["Clean Craftsmanship", "Code as Art", "In Action", "Developer-First", "Radical Clarity"].map((v) => (
                   <span key={v} className="px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-800 text-xs">{v}</span>
@@ -72,7 +72,7 @@ export default function BrandPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Tone of Voice</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Tone of Voice</span>
               <div className="space-y-2 mt-3 text-sm">
                 {[
                   { trait: "Confidence", value: 85 },
@@ -82,10 +82,10 @@ export default function BrandPage() {
                 ].map((t) => (
                   <div key={t.trait} className="flex items-center gap-3">
                     <span className="w-24 text-zinc-500">{t.trait}</span>
-                    <div className="flex-1 h-2 rounded-full bg-zinc-200 dark:bg-zinc-700">
+                    <div className="flex-1 h-2 rounded-full bg-zinc-200 dark:bg-zinc-700" role="progressbar" aria-label={`${t.trait} ${t.value}%`} aria-valuenow={t.value} aria-valuemin={0} aria-valuemax={100}>
                       <div className="h-2 rounded-full bg-blue-600" style={{ width: `${t.value}%` }} />
                     </div>
-                    <span className="text-xs text-zinc-400 w-6 text-right">{t.value}%</span>
+                    <span className="text-xs text-zinc-500 w-6 text-right">{t.value}%</span>
                   </div>
                 ))}
               </div>
@@ -102,7 +102,7 @@ export default function BrandPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Colour Palette</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Colour Palette</span>
               <div className="flex gap-4 mt-4">
                 {[
                   { role: "Primary", hex: "#2563EB" },
@@ -113,9 +113,11 @@ export default function BrandPage() {
                     <div
                       className="w-14 h-14 rounded-xl shadow-md border border-zinc-200 dark:border-zinc-700"
                       style={{ backgroundColor: c.hex }}
+                      aria-label={`${c.role} colour ${c.hex}`}
+                      role="img"
                     />
                     <span className="text-[10px] text-zinc-500">{c.role}</span>
-                    <span className="text-[10px] font-mono text-zinc-400">{c.hex}</span>
+                    <span className="text-[10px] font-mono text-zinc-500">{c.hex}</span>
                   </div>
                 ))}
               </div>
@@ -125,23 +127,23 @@ export default function BrandPage() {
             </div>
 
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Typography</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Typography</span>
               <div className="mt-4 space-y-3">
                 <div>
-                  <p className="text-2xl font-bold" style={{ fontFamily: "Geist, system-ui, sans-serif" }}>
+                  <p className="text-2xl font-bold" style={{ fontFamily: "var(--font-geist-sans)" }}>
                     Geist
                   </p>
-                  <p className="text-xs text-zinc-400">Display — Bold, heavy weights for headlines</p>
+                  <p className="text-xs text-zinc-500">Display — Bold, heavy weights for headlines</p>
                 </div>
                 <div>
-                  <p className="text-base" style={{ fontFamily: "Geist, system-ui, sans-serif" }}>
+                  <p className="text-base" style={{ fontFamily: "var(--font-geist-sans)" }}>
                     Geist Text
                   </p>
-                  <p className="text-xs text-zinc-400">Body — Regular weight for reading</p>
+                  <p className="text-xs text-zinc-500">Body — Regular weight for reading</p>
                 </div>
                 <div>
                   <p className="text-sm font-mono">Geist Mono</p>
-                  <p className="text-xs text-zinc-400">Code — For technical content and UI labels</p>
+                  <p className="text-xs text-zinc-500">Code — For technical content and UI labels</p>
                 </div>
               </div>
             </div>
@@ -157,12 +159,12 @@ export default function BrandPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Hero Headline</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Hero Headline</span>
               <p className="text-xl font-bold italic mt-2">&ldquo;Your brand identity, one prompt away.&rdquo;</p>
             </div>
 
             <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-              <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Primary CTA</span>
+              <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Primary CTA</span>
               <span className="inline-block mt-3 px-5 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-semibold">
                 Generate Your Brand
               </span>
@@ -170,7 +172,7 @@ export default function BrandPage() {
           </div>
 
           <div className="mt-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-sm">
-            <span className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Taglines</span>
+            <span className="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Taglines</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
               {[
                 { text: "Brand identity, AI-powered", score: 8.5 },
@@ -180,7 +182,7 @@ export default function BrandPage() {
               ].map((t) => (
                 <div key={t.text} className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
                   <span className="text-lg">"{t.text}"</span>
-                  <span className="text-xs text-zinc-400 ml-auto">{t.score}/10</span>
+                  <span className="text-xs text-zinc-500 ml-auto">{t.score}/10</span>
                 </div>
               ))}
             </div>

@@ -18,9 +18,9 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
   const [session, setSession] = useState<boolean | null>(null)
   const [configError, setConfigError] = useState(false)
+  const [fetchError, setFetchError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Dynamic import to avoid reference at module level (which breaks static prerendering)
     import('@/lib/supabase/client').then(({ createClient }) => {
       const supabase = createClient()
       if (!supabase) {
@@ -42,10 +42,15 @@ export default function DashboardPage() {
   const fetchBrands = async () => {
     try {
       const res = await fetch('/api/brands')
+      if (!res.ok) {
+        setFetchError(`Failed to load brands (${res.status})`)
+        return
+      }
       const json = await res.json()
       if (json.success) setBrands(json.brands)
+      else setFetchError(json.error || 'Failed to load brands')
     } catch {
-      // silently fail, show empty state
+      setFetchError('Network error — please check your connection and try again')
     } finally {
       setLoading(false)
     }
@@ -59,18 +64,25 @@ export default function DashboardPage() {
     router.replace('/auth/login')
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent, brandId: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      router.push('/')
+    }
+  }
+
   if (configError) {
     return (
       <div className="flex min-h-full items-center justify-center p-8">
-        <div className="w-full max-w-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm text-center">
-          <div className="text-4xl mb-4">🔐</div>
+        <div className="w-full max-w-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-sm text-center" role="status">
+          <div className="text-4xl mb-4" aria-hidden="true">🔐</div>
           <h1 className="text-xl font-bold tracking-tight mb-2">Dashboard Not Available</h1>
           <p className="text-sm text-zinc-500">
             User accounts and brand persistence require Supabase configuration.
           </p>
           <button
             onClick={() => router.push('/')}
-            className="mt-4 px-6 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700"
+            className="mt-4 min-h-[44px] px-6 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700"
           >
             Back to Brand Generator
           </button>
@@ -82,7 +94,11 @@ export default function DashboardPage() {
   if (session === null || loading) {
     return (
       <div className="flex min-h-full items-center justify-center p-8">
-        <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin" />
+        <div
+          className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"
+          aria-label="Loading dashboard"
+          role="status"
+        />
       </div>
     )
   }
@@ -98,13 +114,13 @@ export default function DashboardPage() {
         <div className="flex items-center gap-3">
           <button
             onClick={() => router.push('/')}
-            className="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors"
+            className="min-h-[44px] px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors"
           >
             Create New Brand
           </button>
           <button
             onClick={handleSignOut}
-            className="px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+            className="min-h-[44px] px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
           >
             Sign Out
           </button>
@@ -113,10 +129,24 @@ export default function DashboardPage() {
 
       {/* Content */}
       <main className="flex-1 overflow-y-auto p-8 lg:p-12">
-        {brands.length === 0 ? (
+        {fetchError && (
+          <div className="mb-6 max-w-5xl mx-auto" role="status">
+            <div className="rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/30 px-5 py-4 text-sm text-red-700 dark:text-red-400">
+              <p><strong>Error:</strong> {fetchError}</p>
+              <button
+                onClick={() => { setFetchError(null); setLoading(true); fetchBrands() }}
+                className="mt-2 text-sm font-medium underline hover:no-underline"
+              >
+                Try again
+              </button>
+            </div>
+          </div>
+        )}
+
+        {brands.length === 0 && !fetchError ? (
           <div className="flex flex-col items-center justify-center py-24 text-center animate-fade-in">
             <div className="w-20 h-20 rounded-2xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center mb-6">
-              <svg className="w-10 h-10 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg className="w-10 h-10 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
               </svg>
             </div>
@@ -126,16 +156,16 @@ export default function DashboardPage() {
             </p>
             <button
               onClick={() => router.push('/')}
-              className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
+              className="min-h-[44px] px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-colors"
             >
               Create Your First Brand
             </button>
           </div>
-        ) : (
+        ) : brands.length > 0 ? (
           <div className="max-w-5xl mx-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold tracking-tight">
-                Your Brands <span className="text-sm font-normal text-zinc-400">({brands.length})</span>
+                Your Brands <span className="text-sm font-normal text-zinc-500">({brands.length})</span>
               </h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -143,7 +173,11 @@ export default function DashboardPage() {
                 <div
                   key={brand.id}
                   className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
-                  onClick={() => router.push(`/brands/${brand.id}`)}
+                  onClick={() => router.push('/')}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleKeyDown(e, brand.id)}
+                  aria-label={`View brand: ${brand.name}`}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="font-semibold text-sm truncate">{brand.name}</h3>
@@ -156,14 +190,14 @@ export default function DashboardPage() {
                       {brand.description}
                     </p>
                   )}
-                  <p className="text-[10px] text-zinc-400">
+                  <p className="text-[10px] text-zinc-500">
                     Updated {new Date(brand.updated_at).toLocaleDateString()}
                   </p>
                 </div>
               ))}
             </div>
           </div>
-        )}
+        ) : null}
       </main>
     </div>
   )

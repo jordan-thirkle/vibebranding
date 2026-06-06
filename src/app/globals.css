@@ -5,6 +5,14 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-brand-primary: #2563eb;
+  --color-brand-secondary: #7c3aed;
+  --color-brand-accent: #f59e0b;
+  /* Semantic colours with better contrast (WCAG AA compliant for small text) */
+  --color-text-muted: #71717a; /* zinc-500 — 4.8:1 on white */
+  --color-text-subtle: #52525b; /* zinc-600 — 6.5:1 on white */
+  --color-text-link: #2563eb; /* blue-600 — 5.5:1 on white */
+  --color-border-default: #e4e4e7; /* zinc-200 */
 }
 
 :root {
@@ -16,6 +24,9 @@
   :root {
     --background: #0a0a0f;
     --foreground: #e2e8f0;
+    --color-text-muted: #a1a1aa;
+    --color-text-subtle: #d4d4d8;
+    --color-text-link: #60a5fa;
   }
 }
 
@@ -25,34 +36,96 @@ body {
   font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
 }
 
+/* ── Skip-to-content link ── */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 12px 20px;
+  background: #2563eb;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s;
+  min-height: 44px;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
 /* ── Brand Wizard Animations ── */
-@keyframes fadeIn {
+@keyframes vb-fade-in {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
+@keyframes vb-pulse {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
 
-@keyframes spin {
+@keyframes vb-spin {
   to { transform: rotate(360deg); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
+/* Scoped animation classes */
+.vb-fade-in {
+  animation: vb-fade-in 0.4s ease-out;
 }
 
-.animate-pulse-slow {
-  animation: pulse 2s ease-in-out infinite;
+.vb-pulse-slow {
+  animation: vb-pulse 2s ease-in-out infinite;
 }
 
-.animate-spin {
-  animation: spin 1s linear infinite;
+.vb-spin {
+  animation: vb-spin 1s linear infinite;
 }
 
-/* ── Stage Progress ── */
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .vb-fade-in,
+  .vb-pulse-slow,
+  .vb-spin {
+    animation: none;
+  }
+
+  .vb-fade-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .vb-pulse-slow {
+    opacity: 1;
+  }
+
+  /* Also disable any inline Tailwind animate-* classes */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Focus visible utility ── */
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color 0.15s;
+}
+
+.focus-ring:focus-visible {
+  outline-color: #2563eb;
+  outline-offset: 2px;
+}
+
+/* ── Stage Progress (kept for backward compatibility) ── */
 .stage-active {
   @apply bg-blue-600 text-white shadow-lg shadow-blue-500/25;
 }
