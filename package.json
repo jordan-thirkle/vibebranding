@@ -33,5 +33,14 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.8"
-  }
+  },
+  "description": "Transform your product idea into a complete, production-ready brand identity — naming, visual identity, voice, and launch assets — powered by AI.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordan-thirkle/vibebranding.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jordan-thirkle/vibebranding/issues"
+  },
+  "homepage": "https://github.com/jordan-thirkle/vibebranding#readme"
 }
