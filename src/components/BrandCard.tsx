@@ -85,7 +85,7 @@ export default function BrandCard({ brand, onClick, onDelete }: BrandCardProps) 
 
   return (
     <div
-      className="group relative rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md transition-all cursor-pointer overflow-hidden"
+      className="group relative rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer overflow-hidden"
       onClick={onClick}
       role="button"
       tabIndex={0}

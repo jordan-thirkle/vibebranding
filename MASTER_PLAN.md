@@ -33,35 +33,43 @@ Before building this plan, we tested PromptForge (promptforge-rose.vercel.app) �
 
 ## 1. Competitive Landscape
 
+### Market Overview (June 2026)
+
+- **Market size:** AI logo/branding market grows from $1.2B (2024) → $5.8B (2030) at 30% CAGR
+- **Price compression:** AI tools compress branding from $300-2,500 (designer) → $20-65 one-time (95-99% reduction)
+- **Volume:** 5.5M new US businesses formed in 2024, ~70% choose AI-first branding
+- **Key drivers:** Same-day business launch (Stripe Atlas, Tailor Brands LLC bundles), social media asset variation demand (10-50 variations per brand), Print-on-Demand/Shopify entrepreneurs needing vector files
+
 ### Primary Competitors
 
 | Competitor | Pricing | Audience | Core Strength | Gap |
 |-----------|---------|----------|---------------|-----|
-| **BrandForge** (usebrandforge.com) | $49-149/mo + credit packs | Agencies managing client brands | Reference-driven brand-aware images | Image-only, no brand strategy, no naming, no export tokens |
-| **Looka** (looka.com) | $20-65 one-time + $96-192/yr | SMBs, solopreneurs | Logo + brand kit, 5M+ users | Template-driven, generic B2B results, no AI strategy |
-| **Hatchful** (Shopify) | Free | Shopify store owners | Logo generation in Shopify ecosystem | Logo only, no identity system |
-| **Brandmark.io** | $25-175 one-time | Design-conscious founders | High-quality AI vector logos | No full brand pipeline |
-| **Tailor Brands** | $9.99-49.99/mo | SMBs, side hustlers | LLC formation + branding bundle | Quality over quantity, subscription-heavy |
+| **BrandForge** (brandforge.com) | $49-149/mo (est, pre-launch) | Agencies, startups | Full brand suite: logo, website, social, eCommerce, white-label | Pre-launch, no developer tokens, no BCE, closed SaaS |
+| **Looka** (looka.com) | $20-65 one-time + $96-192/yr | SMBs, solopreneurs | 5M+ users, logo + 300+ brand kit templates | Declining search interest (33k→15k/mo), template-driven, no AI strategy pipeline |
+| **Brandmark.io** | $35-195 one-time | Design-conscious founders | Highest visual quality, $195 includes trademark research | Logo only, no full brand pipeline |
+| **Tailor Brands** | $9.99-49.99/mo | SMBs, side hustlers | 50M+ logos, LLC formation bundle, website + email | Business formation platform first, branding is add-on |
+| **Hatchful (Shopify)** | Free | Shopify store owners | Free logo in Shopify ecosystem | PNG only, no SVG/vector, no identity system |
 | **BrandForge AI** (brandforgeai.pro) | $47-197 one-time | Bootstrap founders | Complete brand package in 60 seconds | Front-end only, no platform lock-in |
 
 ### VibeBranding's Unique Selling Points
 
-| Feature | VibeBranding | Looka | BrandForge | Brandmark |
-|---------|-------------|-------|------------|-----------|
-| **Full 9-stage pipeline** | ✅ | ❌ (just logo + kit) | ❌ (images only) | ❌ (logo only) |
+| Feature | VibeBranding | BrandForge | Looka | Brandmark |
+|---------|-------------|-----------|-------|-----------|
+| **Full 9-stage pipeline** | ✅ | 🟡 (logo+site+social — narrower) | ❌ (just logo + kit) | ❌ (logo only) |
 | **Brand Coherence Engine** | ✅ (BCE) | ❌ | ❌ | ❌ |
 | **CSS/Tailwind/SCSS tokens** | ✅ | ❌ | ❌ | ❌ |
 | **Figma styles JSON export** | ✅ | ❌ | ❌ | ❌ |
-| **PDF brand guidelines** | ✅ | ❌ | ❌ | ❌ |
-| **Multi-model AI (Gemini + Replicate)** | ✅ | ❌ | Proprietary | Proprietary |
+| **PDF brand guidelines** | ✅ | ✅ | ❌ | ❌ |
+| **Multi-model AI (Gemini + Replicate)** | ✅ | Proprietary | Proprietary | Proprietary |
 | **Open-source core** | ✅ | ❌ | ❌ | ❌ |
 | **AI-powered naming** | ✅ (5 strategies) | ❌ | ❌ | ❌ |
 | **WCAG AA compliance** | ✅ | ❌ | ❌ | ❌ |
 | **Dark/light mode parity** | ✅ | ❌ | ❌ | ❌ |
 | **Motion language** | ✅ | ❌ | ❌ | ❌ |
 | **Zod-validated BSO** | ✅ | ❌ | ❌ | ❌ |
+| **Developer-first export** | ✅ | ❌ (visual assets only) | ❌ (templates only) | ❌ (vectors only) |
 
-**VibeBranding's competitive moat:** The only platform that treats branding as a **complete system** — from strategy through visual identity through code tokens — validated by a Brand Coherence Engine that catches contradictions.
+**VibeBranding's competitive moat:** The only platform that treats branding as a **complete system** — from strategy through visual identity through code tokens — validated by a Brand Coherence Engine that catches contradictions. We're the only developer-first brand generator in a market full of SMB/solopreneur tools.
 
 ---
 

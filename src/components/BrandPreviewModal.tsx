@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface FullBrand {
   id: string
@@ -42,6 +42,41 @@ export default function BrandPreviewModal({ brandId, onClose }: BrandPreviewModa
   const [brand, setBrand] = useState<FullBrand | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [exporting, setExporting] = useState(false)
+  const [exportFormat, setExportFormat] = useState<string>('all')
+  const [exportResult, setExportResult] = useState<{ success: boolean; fileCount?: number; files?: Record<string, { filename: string; content: string }>; error?: string } | null>(null)
+
+  const handleExport = useCallback(async () => {
+    setExporting(true)
+    setExportResult(null)
+    try {
+      const res = await fetch(`/api/brands/${brandId}/export`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ format: exportFormat }),
+      })
+      const json = await res.json()
+      setExportResult(json)
+      if (json.success && json.files) {
+        // Download the first file automatically
+        const entries = Object.entries(json.files) as [string, { filename: string; content: string }][]
+        if (entries.length > 0) {
+          const [, file] = entries[0]
+          const blob = new Blob([file.content], { type: 'text/plain' })
+          const url = URL.createObjectURL(blob)
+          const a = document.createElement('a')
+          a.href = url
+          a.download = file.filename
+          a.click()
+          URL.revokeObjectURL(url)
+        }
+      }
+    } catch {
+      setExportResult({ success: false, error: 'Network error' })
+    } finally {
+      setExporting(false)
+    }
+  }, [brandId, exportFormat])
 
   useEffect(() => {
     const fetchBrand = async () => {
@@ -390,12 +425,56 @@ export default function BrandPreviewModal({ brandId, onClose }: BrandPreviewModa
                 </div>
               )}
 
-              {/* Export note */}
+              {/* Export */}
               <section className="pt-2">
-                <div className="rounded-lg border border-blue-100 dark:border-blue-900/30 bg-blue-50 dark:bg-blue-950/30 px-4 py-3 text-xs text-blue-700 dark:text-blue-400">
-                  <strong>Export:</strong> To download brand tokens, generate this brand from the{' '}
-                  <a href="/" className="font-medium underline hover:no-underline">brand generator</a>.
+                <h3 className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">Export Brand Kit</h3>
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                  {['all', 'css', 'tailwind', 'scss', 'figma', 'html'].map((fmt) => (
+                    <button
+                      key={fmt}
+                      onClick={() => { setExportFormat(fmt); setExportResult(null) }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                        exportFormat === fmt
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
+                      }`}
+                    >
+                      {fmt === 'all' ? 'All Formats' : fmt.toUpperCase()}
+                    </button>
+                  ))}
                 </div>
+                <button
+                  onClick={handleExport}
+                  disabled={exporting}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors min-h-[44px]"
+                  aria-label={exporting ? 'Exporting...' : 'Export brand kit'}
+                >
+                  {exporting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Exporting…
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      Export
+                    </>
+                  )}
+                </button>
+
+                {exportResult && (
+                  <div className={`mt-3 rounded-lg border px-4 py-3 text-xs ${
+                    exportResult.success
+                      ? 'border-green-200 dark:border-green-900/30 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400'
+                      : 'border-red-200 dark:border-red-900/30 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400'
+                  }`}>
+                    {exportResult.success
+                      ? `Exported ${exportResult.fileCount} file(s) successfully. Check your downloads.`
+                      : exportResult.error || 'Export failed'}
+                  </div>
+                )}
               </section>
             </>
           )}
