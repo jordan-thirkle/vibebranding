@@ -1,0 +1,33 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation "Main navigation" [ref=e3]:
+    - generic [ref=e4]:
+      - link "VibeBranding home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - text: VibeBranding
+      - generic [ref=e11]:
+        - link "Home" [ref=e12] [cursor=pointer]:
+          - /url: /
+        - link "Brand Identity" [ref=e13] [cursor=pointer]:
+          - /url: /brand
+        - link "Devlog" [ref=e14] [cursor=pointer]:
+          - /url: /devlog
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+  - generic [ref=e18]:
+    - generic [ref=e19]:
+      - heading "Sign in to VibeBranding" [level=1] [ref=e20]
+      - paragraph [ref=e21]: Enter your email to receive a magic link
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e24]: Email
+        - textbox "Email" [ref=e25]:
+          - /placeholder: you@example.com
+      - button "Send Magic Link" [disabled] [ref=e26]
+    - generic [ref=e31]: or
+    - button "Continue with GitHub" [ref=e32]:
+      - img [ref=e33]
+      - text: Continue with GitHub
+  - alert [ref=e35]

@@ -260,4 +260,46 @@ describe("generateMockBSO - edge cases", () => {
     expect(tone?.seriousToWitty).toBeGreaterThanOrEqual(0);
     expect(tone?.seriousToWitty).toBeLessThanOrEqual(100);
   });
+
+  it("includes logo data from stage >= 5", () => {
+    const bsoStage4 = generateMockBSO(SAMPLE_PRODUCT, 4);
+    const bsoStage5 = generateMockBSO(SAMPLE_PRODUCT, 5);
+
+    expect(bsoStage4.visualIdentity?.logo).toBeUndefined();
+    expect(bsoStage5.visualIdentity?.logo).toBeDefined();
+    expect(bsoStage5.visualIdentity?.logo?.typology).toBe("icon_wordmark");
+    expect(bsoStage5.visualIdentity?.logo?.concepts).toHaveLength(3);
+    expect(bsoStage5.visualIdentity?.logo?.lockups).toHaveLength(4);
+    expect(bsoStage5.visualIdentity?.logo?.qualityChecks).toBeDefined();
+    expect(bsoStage5.visualIdentity?.logo?.qualityChecks?.legibility16px).toBe(true);
+    expect(bsoStage5.visualIdentity?.logo?.qualityChecks?.competitorProximity).toBe("distinct");
+  });
+
+  it("logo qualityChecks pass all reproducibility requirements", () => {
+    const bso = generateMockBSO(SAMPLE_PRODUCT, 9);
+    const qc = bso.visualIdentity?.logo?.qualityChecks!;
+    expect(qc.legibility16px).toBe(true);
+    expect(qc.oneColourReproduction).toBe(true);
+    expect(qc.backgroundVersatility).toBe(true);
+    expect(qc.competitorProximity).toMatch(/^(distinct|similar|conflicting)$/);
+  });
+
+  it("full stage 9 BSO passes all 10 BCE checks", async () => {
+    const bso = generateMockBSO(SAMPLE_PRODUCT, 9) as any;
+    const { getConsistencyEngine } = await import("@/core/consistency-engine");
+    const engine = getConsistencyEngine();
+    const report = engine.run(bso as any);
+
+    expect(report.totalChecks).toBe(10);
+    expect(report.errors).toBe(0);
+    // Allow warnings (they're informational), but no hard errors
+    expect(report.overall).toBe("ready");
+
+    // Log detail for debugging
+    for (const check of report.checks) {
+      if (check.status !== "pass") {
+        console.log(`[${check.status.toUpperCase()}] ${check.name}: ${check.details}`);
+      }
+    }
+  });
 });

@@ -1,0 +1,4 @@
+[     364ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://vibebranding.vercel.app/icon-192.png:0
+[     365ms] [WARNING] Error while trying to use the following icon from the Manifest: https://vibebranding.vercel.app/icon-192.png (Download error or resource isn't a valid image) @ https://vibebranding.vercel.app/auth/login:0
+[   13818ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://pmvletkipbupbejhouhp.supabase.co/auth/v1/otp?redirect_to=https%3A%2F%2Fvibebranding.vercel.app%2Fauth%2Fcallback:0
+[   18528ms] [ERROR] Failed to load resource: the server responded with a status of 429 () @ https://pmvletkipbupbejhouhp.supabase.co/auth/v1/otp?redirect_to=https%3A%2F%2Fvibebranding.vercel.app%2Fauth%2Fcallback:0

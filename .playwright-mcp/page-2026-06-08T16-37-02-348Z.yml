@@ -1,0 +1,103 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - navigation "Main navigation" [ref=e3]:
+    - generic [ref=e4]:
+      - link "VibeBranding home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e6]
+        - text: VibeBranding
+      - generic [ref=e11]:
+        - link "Home" [ref=e12] [cursor=pointer]:
+          - /url: /
+        - link "Brand Identity" [ref=e13] [cursor=pointer]:
+          - /url: /brand
+        - link "Devlog" [ref=e14] [cursor=pointer]:
+          - /url: /devlog
+        - link "Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: /dashboard
+  - generic [ref=e17]:
+    - complementary [ref=e18]:
+      - generic [ref=e19]:
+        - heading "VibeBranding" [level=1] [ref=e20]
+        - paragraph [ref=e21]: AI Brand Identity Generator
+        - link "Our Brand Identity →" [ref=e22] [cursor=pointer]:
+          - /url: /brand
+        - link "Devlog" [ref=e23] [cursor=pointer]:
+          - /url: /devlog
+      - navigation [ref=e24]:
+        - list "Brand generation stages" [ref=e25]:
+          - listitem [ref=e26]:
+            - button "🔍 Discovery" [disabled] [ref=e27]:
+              - generic [ref=e28]: 🔍
+              - generic [ref=e29]: Discovery
+          - listitem [ref=e30]:
+            - button "🎯 Strategy" [disabled] [ref=e31]:
+              - generic [ref=e32]: 🎯
+              - generic [ref=e33]: Strategy
+          - listitem [ref=e34]:
+            - button "🏷️ Naming" [disabled] [ref=e35]:
+              - generic [ref=e36]: 🏷️
+              - generic [ref=e37]: Naming
+          - listitem [ref=e38]:
+            - button "🎨 Visual" [disabled] [ref=e39]:
+              - generic [ref=e40]: 🎨
+              - generic [ref=e41]: Visual
+          - listitem [ref=e42]:
+            - button "🖼️ Logo" [disabled] [ref=e43]:
+              - generic [ref=e44]: 🖼️
+              - generic [ref=e45]: Logo
+          - listitem [ref=e46]:
+            - button "✍️ Voice" [disabled] [ref=e47]:
+              - generic [ref=e48]: ✍️
+              - generic [ref=e49]: Voice
+          - listitem [ref=e50]:
+            - button "📦 Assets" [disabled] [ref=e51]:
+              - generic [ref=e52]: 📦
+              - generic [ref=e53]: Assets
+          - listitem [ref=e54]:
+            - button "📋 Guidelines" [disabled] [ref=e55]:
+              - generic [ref=e56]: 📋
+              - generic [ref=e57]: Guidelines
+          - listitem [ref=e58]:
+            - button "🚀 Export" [disabled] [ref=e59]:
+              - generic [ref=e60]: 🚀
+              - generic [ref=e61]: Export
+    - main [ref=e62]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - heading "Create Your Brand Identity" [level=2] [ref=e66]
+          - paragraph [ref=e67]: Describe your product and VibeBranding will generate a complete brand system — strategy, naming, colours, typography, voice, and launch assets.
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - generic [ref=e70]: Product Name
+            - textbox "e.g., PixelForge, Draftly, FlowKit" [ref=e71]
+            - paragraph [ref=e72]: What's your product called? (can be a working title)
+          - generic [ref=e73]:
+            - generic [ref=e74]: Description
+            - textbox "e.g., An AI-powered design tool that transforms rough sketches into production-ready UI components..." [ref=e75]
+            - paragraph [ref=e76]: What does it do? Be specific.
+          - generic [ref=e77]:
+            - generic [ref=e78]: Category
+            - combobox [ref=e79]:
+              - option "SaaS" [selected]
+              - option "Developer Tool"
+              - option "Consumer App"
+              - option "Creative Tool"
+              - option "Marketplace"
+              - option "AI / ML Product"
+              - option "API Service"
+              - option "Mobile App"
+              - option "Game"
+            - paragraph [ref=e80]: What kind of product is this?
+          - generic [ref=e81]:
+            - generic [ref=e82]: Target Audience
+            - textbox "e.g., UI/UX designers and frontend devs, age 22-40" [ref=e83]
+            - paragraph [ref=e84]: Who will use this? Demographics, role, tech level.
+          - generic [ref=e85]:
+            - generic [ref=e86]: Competitors
+            - textbox "e.g., Figma, Canva, Galileo AI" [ref=e87]
+            - paragraph [ref=e88]: Comma-separated list (optional)
+        - button "Generate Brand Identity →" [disabled] [ref=e89]
+        - paragraph [ref=e90]: Powered by Gemini 3.5 Flash • Stages 1-8 run automatically
+  - alert [ref=e91]

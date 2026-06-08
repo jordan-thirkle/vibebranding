@@ -356,6 +356,31 @@ export function generateMockBSO(product: Partial<ProductInfo>, stage: number): P
         },
       },
     };
+
+    // Add logo when stage >= 5 (visualIdentity already exists)
+    if (stage >= 5) {
+      bso.visualIdentity.logo = {
+        typology: "icon_wordmark" as const,
+        concepts: [
+          { index: 0, description: `${name} stylized lettermark with geometric accent mark`, prompt: `Minimalist ${emotionalTerritory.toLowerCase()} lettermark with ${palette.primary} gradient`, rationale: "Clean lettermark works across all sizes" },
+          { index: 1, description: `${name} icon wordmark combination with abstract shape`, prompt: `Icon + wordmark lockup expressing ${emotionalTerritory}`, rationale: "Strong brand recognition through shape" },
+          { index: 2, description: `${name} abstract symbol derived from product metaphor`, prompt: `Abstract ${category.toLowerCase()} concept mark with ${emotionalTerritory} feeling`, rationale: "Distinctive abstract mark stands out" },
+        ],
+        selectedConcept: seed % 3,
+        lockups: [
+          { variant: "horizontal" as const, description: "Icon + wordmark side by side for header/hero usage" },
+          { variant: "stacked" as const, description: "Icon above wordmark for social avatar / square usage" },
+          { variant: "icon_only" as const, description: "Standalone icon for favicon and mobile app icon" },
+          { variant: "wordmark_only" as const, description: "Wordmark-only variation for dense layouts" },
+        ],
+        qualityChecks: {
+          legibility16px: true,
+          oneColourReproduction: true,
+          backgroundVersatility: true,
+          competitorProximity: "distinct" as const,
+        },
+      };
+    }
   }
 
   if (stage >= 1 && !bso.metadata) {

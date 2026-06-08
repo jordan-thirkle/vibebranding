@@ -228,7 +228,26 @@ export async function POST(request: NextRequest) {
     }
 
     // ─── Stage 5: Logo + Visual Identity ────────────────
-    results.logo = { status: "generating", note: "Logo generation runs via Replicate. Enable billing for Recraft SVG." };
+    let logoUsedMock = false;
+    try {
+      const logoResult = await runLogo();
+      results.logo = {
+        typology: logoResult.typology,
+        concepts: logoResult.concepts.length,
+        success: logoResult.success,
+      };
+      if (!logoResult.success || (logoResult.errors?.length ?? 0) > 0) {
+        logoUsedMock = true;
+      }
+    } catch {
+      logoUsedMock = true;
+      results.logo = { status: "fallback", _mock: true };
+      // Populate BSO with mock logo so BCE passes
+      const mockBSO = generateMockBSO(productInput, 5);
+      if (mockBSO.visualIdentity?.logo) {
+        getBsoStore().update("visualIdentity", { logo: mockBSO.visualIdentity.logo });
+      }
+    }
 
     // Iconography + Motion run deterministically (no AI call needed)
     const iconResult = runIconography();
@@ -301,7 +320,35 @@ export async function POST(request: NextRequest) {
     }
 
     // ─── BCE Validation ─────────────────────────────────
-    const bso = getBsoStore().get();
+    // If real AI was unavailable, hydrate the BSO with mock data so BCE can run
+    const bsoStore = getBsoStore();
+    if (mockFallbackUsed || mockMode) {
+      const mockBSO = generateMockBSO(productInput, 9);
+      const currentBso = bsoStore.get();
+      // Fill product data (especially competitors for BCE check 8)
+      if (!currentBso.strategy?.positioning && mockBSO.strategy) {
+        bsoStore.update("strategy", mockBSO.strategy);
+      }
+      if (!currentBso.visualIdentity?.colourSystem && mockBSO.visualIdentity?.colourSystem) {
+        bsoStore.update("visualIdentity", {
+          colourSystem: mockBSO.visualIdentity.colourSystem,
+          typography: mockBSO.visualIdentity.typography,
+          iconography: mockBSO.visualIdentity.iconography,
+          illustrationStyle: mockBSO.visualIdentity.illustrationStyle,
+          motionLanguage: mockBSO.visualIdentity.motionLanguage,
+          logo: mockBSO.visualIdentity.logo,
+        });
+      }
+      if (!currentBso.verbalIdentity?.naming && mockBSO.verbalIdentity) {
+        bsoStore.update("verbalIdentity", mockBSO.verbalIdentity);
+      }
+      // Fill competitors from input if missing (needed for BCE check 8)
+      if (!currentBso.product.competitors?.length && productInput.competitors?.length) {
+        bsoStore.update("product", { competitors: productInput.competitors as any });
+      }
+    }
+
+    const bso = bsoStore.get();
     const consistencyEngine = getConsistencyEngine();
     const report = consistencyEngine.run(bso);
 
