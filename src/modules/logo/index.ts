@@ -4,18 +4,16 @@
  * Multi-pass AI logo generation pipeline:
  * 1. Concept Ideation (12 concepts)
  * 2. Style Refinement (top 4)
- * 3. Lockup Composition
+ * 3. SVG code generation via Gemini
  * 4. Dark/Light/Mono Variants
  * 5. Quality Checks
  *
- * Uses Recraft V4.1 SVG for vector output when REPLICATE_API_KEY is available,
- * falls back to Gemini for concept descriptions.
+ * SVG logos are generated as code by Gemini (no external API needed).
  */
 
 import { getBsoStore } from "@/core/bso";
 import { getPromptEngine } from "@/core/prompt-engine/index";
 import { generateWithGemini, getGeminiConfig } from "@/ai/gemini";
-import { generateVectorWithRecraft } from "@/ai/model-router";
 import type { LogoConcept, LogoLockup, LogoQualityChecks, VisualIdentityInfo } from "@/core/bso/types";
 
 export interface LogoOutput {
@@ -68,26 +66,51 @@ export async function runLogo(): Promise<LogoOutput> {
   // Parse concepts from AI output
   const concepts = parseLogoConcepts(logoText);
 
-  // ─── Step 3: Try SVG Generation ─────────────────────
+  // ─── Step 3: Generate SVG via Gemini ───────────────
   const svgResults: string[] = [];
-    if (process.env.REPLICATE_API_KEY) {
-    try {
-      const topConcept = concepts[0];
-      if (topConcept) {
-        const svgPrompt = `Flat vector logo design. ${topConcept.description}. Clean geometric lines, minimal, professional, scalable. Colours: ${cs?.primaryColour || "blue"} and ${cs?.accentColour || "amber"}. White background.`;
-        const result = await generateVectorWithRecraft(svgPrompt, "standard");
-        if (result.status === "success") {
-          svgResults.push(...result.urls);
-          console.log(`✅ SVG logo generated: ${result.urls.length} file(s)`);
-        } else {
-          console.log(`⚠️  SVG logo skipped: ${result.errorMessage || "no credit"}`);
-        }
+  try {
+    const topConcept = concepts[0];
+    if (topConcept) {
+      const svgPrompt = `Generate a clean, minimal, professional SVG logo for "${bso.product.name}".
+
+Brand context: ${bso.strategy?.emotionalTerritory || "Professional"} brand
+Logo typology: ${typology}
+Primary colour: ${cs?.primaryColour || "#2563EB"}
+Accent colour: ${cs?.accentColour || "#F59E0B"}
+Background: transparent
+
+Design requirements:
+- Clean geometric lines, minimal, scalable
+- Uses the brand colours appropriately
+- viewBox="0 0 512 512"
+- xmlns="http://www.w3.org/2000/svg"
+- No text labels or external dependencies
+- Keep the SVG simple — under 500 lines
+
+Return ONLY valid SVG code. No markdown, no explanation, no code fences.`;
+
+      const svgCode = await generateWithGemini(svgPrompt, config, {
+        temperature: 0.3,
+        maxTokens: 4096,
+      });
+
+      // Clean up any markdown fences that might slip through
+      const cleaned = svgCode.trim()
+        .replace(/^```svg?\n?/i, "")
+        .replace(/^```\n?/i, "")
+        .replace(/\n```\n?$/i, "")
+        .trim();
+
+      if (cleaned.startsWith("<svg")) {
+        const dataUri = `data:image/svg+xml;base64,${Buffer.from(cleaned, "utf-8").toString("base64")}`;
+        svgResults.push(dataUri);
+        console.log(`✅ SVG logo (${(cleaned.length / 1024).toFixed(1)}KB) generated via Gemini`);
+      } else {
+        console.log(`⚠️  Gemini returned non-SVG content — skipping inline SVG`);
       }
-    } catch {
-      // SVG generation is non-critical
     }
-  } else {
-    console.log("ℹ️  REPLICATE_API_KEY not set — skipping SVG generation. Set it to enable Recraft V4.1 SVG logos.");
+  } catch (err) {
+    console.log(`⚠️  SVG generation via Gemini failed: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   // ─── Step 4: Quality Checks ─────────────────────────

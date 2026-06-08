@@ -30,6 +30,9 @@ import { getConsistencyEngine } from "@/core/consistency-engine/index";
 import { generateMockBSO, generateMockStageResult } from "@/ai/mock-data";
 import type { ProductInfo, BrandStateObject } from "@/core/bso/types";
 
+// Allow up to 60s for sequential AI calls (Vercel Hobby supports up to 60s since May 2024)
+export const maxDuration = 60;
+
 // Register all prompt templates once at module load
 registerAllTemplates(getPromptEngine());
 
@@ -130,56 +133,56 @@ export async function POST(request: NextRequest) {
 
     // ─── Stage 2: Strategy ──────────────────────────────
     if (!mockMode) {
-      try {
-        const strategyResult = await runStrategy();
+      const strategyPromise = (async () => {
+        try { return await runStrategy(); }
+        catch { return { success: false as const, archetypes: [], emotionalTerritory: "", values: [], toneSummary: "", errors: ["Strategy failed"] }; }
+      })();
+
+      if (targetStage >= 3) {
+        // Stage 2 + 3: run naming in parallel with strategy (both depend on Discovery only)
+        const namingPromise = (async () => {
+          try { return await runNaming(); }
+          catch { return { success: false as const, candidates: [], recommended: 0, errors: ["Naming failed"] }; }
+        })();
+
+        const [strategyResult, namingResult] = await Promise.all([strategyPromise, namingPromise]);
+
         if (strategyResult.success) {
-          results.strategy = {
-            archetypes: strategyResult.archetypes,
-            emotionalTerritory: strategyResult.emotionalTerritory,
-            values: strategyResult.values,
-            toneSummary: strategyResult.toneSummary,
-          };
-        } else {
-          mockFallbackUsed = true;
-          const mockStage = generateMockStageResult(2, productInput);
-          results.strategy = { ...mockStage, _mock: true };
-        }
-      } catch {
-        mockFallbackUsed = true;
-        const mockStage = generateMockStageResult(2, productInput);
-        results.strategy = { ...mockStage, _mock: true };
+          results.strategy = { archetypes: strategyResult.archetypes, emotionalTerritory: strategyResult.emotionalTerritory, values: strategyResult.values, toneSummary: strategyResult.toneSummary };
+        } else { mockFallbackUsed = true; results.strategy = { ...generateMockStageResult(2, productInput), _mock: true }; }
+
+        if (namingResult.success) {
+          results.naming = { candidates: namingResult.candidates.slice(0, 5), recommended: namingResult.recommended };
+        } else { mockFallbackUsed = true; results.naming = { ...generateMockStageResult(3, productInput), _mock: true }; }
+      } else {
+        // Only stage 2 needed
+        const strategyResult = await strategyPromise;
+        if (strategyResult.success) {
+          results.strategy = { archetypes: strategyResult.archetypes, emotionalTerritory: strategyResult.emotionalTerritory, values: strategyResult.values, toneSummary: strategyResult.toneSummary };
+        } else { mockFallbackUsed = true; results.strategy = { ...generateMockStageResult(2, productInput), _mock: true }; }
       }
     } else {
-      const mockStage = generateMockStageResult(2, productInput);
-      results.strategy = { ...mockStage, _mock: true };
+      results.strategy = { ...generateMockStageResult(2, productInput), _mock: true };
+      if (targetStage >= 3) { results.naming = { ...generateMockStageResult(3, productInput), _mock: true }; }
     }
 
     if (targetStage <= 2) {
       return NextResponse.json({ success: true, stage: 2, results, _mockFallback: mockFallbackUsed || mockMode });
     }
 
-    // ─── Stage 3: Naming ────────────────────────────────
-    if (!mockMode) {
-      try {
-        const namingResult = await runNaming();
-        if (namingResult.success) {
-          results.naming = {
-            candidates: namingResult.candidates.slice(0, 5),
-            recommended: namingResult.recommended,
-          };
-        } else {
-          mockFallbackUsed = true;
-          const mockStage = generateMockStageResult(3, productInput);
-          results.naming = { ...mockStage, _mock: true };
-        }
-      } catch {
-        mockFallbackUsed = true;
-        const mockStage = generateMockStageResult(3, productInput);
-        results.naming = { ...mockStage, _mock: true };
+    // ─── Stage 3: Naming (may have run in parallel with Strategy) ─
+    if (!results.naming && targetStage >= 3) {
+      // Naming was not yet computed (only needed for stage >= 3 and not in mock mode)
+      if (!mockMode) {
+        try {
+          const namingResult = await runNaming();
+          if (namingResult.success) {
+            results.naming = { candidates: namingResult.candidates.slice(0, 5), recommended: namingResult.recommended };
+          } else { mockFallbackUsed = true; results.naming = { ...generateMockStageResult(3, productInput), _mock: true }; }
+        } catch { mockFallbackUsed = true; results.naming = { ...generateMockStageResult(3, productInput), _mock: true }; }
+      } else {
+        results.naming = { ...generateMockStageResult(3, productInput), _mock: true };
       }
-    } else {
-      const mockStage = generateMockStageResult(3, productInput);
-      results.naming = { ...mockStage, _mock: true };
     }
 
     if (targetStage <= 3) {
@@ -358,6 +361,11 @@ export async function POST(request: NextRequest) {
       warnings: report.warnings,
       errors: report.errors,
       total: report.totalChecks,
+      checks: report.checks.map((c) => ({
+        name: c.name,
+        status: c.status,
+        details: c.details?.slice(0, 120),
+      })),
     };
 
     // ─── Export BSO ─────────────────────────────────────

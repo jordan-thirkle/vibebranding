@@ -49,12 +49,17 @@ describe("generateMockBSO", () => {
   it("produces deterministic output for the same input", () => {
     const a = generateMockBSO(SAMPLE_PRODUCT, 9);
     const b = generateMockBSO(SAMPLE_PRODUCT, 9);
+    // Compare all sections individually (metadata timestamps may differ by 1ms)
     expect(a.product?.name).toBe(b.product?.name);
     expect(a.strategy?.emotionalTerritory).toBe(b.strategy?.emotionalTerritory);
     expect(a.visualIdentity?.colourSystem?.primaryColour).toBe(
       b.visualIdentity?.colourSystem?.primaryColour
     );
-    expect(JSON.stringify(a)).toBe(JSON.stringify(b));
+    expect(a.verbalIdentity?.naming?.selectedName).toBe(b.verbalIdentity?.naming?.selectedName);
+    // Verify deterministic content by comparing without metadata
+    const { metadata: _, ...restA } = a as any;
+    const { metadata: __, ...restB } = b as any;
+    expect(JSON.stringify(restA)).toBe(JSON.stringify(restB));
   });
 
   it("produces different output for different product names", () => {

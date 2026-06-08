@@ -7,8 +7,8 @@
  * - Cost-efficiency (fast/cheap models for high-volume tasks)
  *
  * Providers:
- * - Google Gemini 3.5 Flash / 2.5 Pro (text)
- * - Recraft V4.1 SVG (vector logos, icons) ⭐
+ * - Google Gemini 3.1 Flash-Lite (text, default via gemini.ts)
+ * - Recraft V4.1 SVG (vector logos, icons) ⭐ — requires Replicate billing
  * - Recraft V4.1 (design illustrations)
  * - Ideogram V4 (text-heavy graphic design)
  * - FLUX.2 Pro (high-quality illustration)
@@ -54,59 +54,59 @@ const taskModelMap: Record<AITask, ModelConfig> = {
   // Text generation tasks → Gemini
   strategy: {
     provider: "gemini",
-    modelId: "gemini-2.5-pro",
+    modelId: "gemini-3.1-flash-lite",
     temperature: 0.5,
     maxTokens: 8192,
     outputType: "text",
-    costTier: "standard",
+    costTier: "free",
   },
   naming: {
     provider: "gemini",
-    modelId: "gemini-2.5-pro",
+    modelId: "gemini-3.1-flash-lite",
     temperature: 0.8,
     maxTokens: 4096,
     outputType: "text",
-    costTier: "standard",
+    costTier: "free",
   },
   copywriting: {
     provider: "gemini",
-    modelId: "gemini-2.5-pro",
+    modelId: "gemini-3.1-flash-lite",
     temperature: 0.7,
     maxTokens: 8192,
     outputType: "text",
-    costTier: "standard",
+    costTier: "free",
   },
   colour_theory: {
     provider: "gemini",
-    modelId: "gemini-3.5-flash",
+    modelId: "gemini-3.1-flash-lite",
     temperature: 0.2,
     maxTokens: 2048,
     outputType: "text",
-    costTier: "budget",
+    costTier: "free",
   },
   typography: {
     provider: "gemini",
-    modelId: "gemini-3.5-flash",
+    modelId: "gemini-3.1-flash-lite",
     temperature: 0.2,
     maxTokens: 2048,
     outputType: "text",
-    costTier: "budget",
+    costTier: "free",
   },
   motion_tokens: {
     provider: "gemini",
-    modelId: "gemini-3.5-flash",
+    modelId: "gemini-3.1-flash-lite",
     temperature: 0.3,
     maxTokens: 2048,
     outputType: "text",
-    costTier: "budget",
+    costTier: "free",
   },
   brand_validation: {
     provider: "gemini",
-    modelId: "gemini-3.5-flash",
+    modelId: "gemini-3.1-flash-lite",
     temperature: 0.1,
     maxTokens: 4096,
     outputType: "text",
-    costTier: "budget",
+    costTier: "free",
   },
 
   // Logo & Icon tasks → Recraft SVG ⭐
@@ -377,8 +377,8 @@ export function registerTaskModel(task: AITask, config: ModelConfig): void {
 // ─── Cost Estimates (per 1K tokens or per image) ─────────────
 
 export const MODEL_PRICING = {
-  "gemini-3.5-flash": { input: "$0.075/1M tokens", output: "$0.30/1M tokens", tier: "budget" },
-  "gemini-2.5-pro": { input: "$1.25/1M tokens", output: "$5.00/1M tokens", tier: "standard" },
+  "gemini-3.1-flash-lite": { input: "FREE (high quota)", output: "FREE (high quota)", tier: "free" },
+  "gemini-3.5-flash": { input: "$0.075/1M tokens (20/day free)", output: "$0.30/1M tokens", tier: "budget" },
   "recraft-ai/recraft-v4.1": { perImage: "~$0.03", tier: "budget" },
   "recraft-ai/recraft-v4.1-svg": { perImage: "~$0.05", tier: "standard" },
   "recraft-ai/recraft-v4.1-pro-svg": { perImage: "~$0.08", tier: "premium" },

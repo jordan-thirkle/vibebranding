@@ -2,6 +2,7 @@
  * Google Gemini AI integration for VibeBranding.
  * Handles text generation for strategy, naming, copywriting, and image generation.
  * Features exponential backoff retry for rate limits and transient failures.
+ * Default model: gemini-3.1-flash-lite (high free tier, fast inference, updated March 2026).
  */
 
 export interface GeminiConfig {
@@ -24,7 +25,7 @@ export interface RetryOptions {
   maxDelayMs?: number;
 }
 
-const DEFAULT_MODEL = "gemini-3.5-flash";
+const DEFAULT_MODEL = "gemini-3.1-flash-lite";
 const DEFAULT_RETRY: Required<RetryOptions> = {
   maxRetries: 3,
   baseDelayMs: 1000,
@@ -201,6 +202,6 @@ export function getGeminiConfig(): GeminiConfig {
   }
   return {
     apiKey,
-    model: "gemini-3.5-flash",
+    model: "gemini-3.1-flash-lite",
   };
 }
