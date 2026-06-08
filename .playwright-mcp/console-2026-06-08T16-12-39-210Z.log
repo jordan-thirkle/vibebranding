@@ -1,6 +1,0 @@
-[     183ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://vibebranding.vercel.app/icon-192.png:0
-[     184ms] [WARNING] Error while trying to use the following icon from the Manifest: https://vibebranding.vercel.app/icon-192.png (Download error or resource isn't a valid image) @ https://vibebranding.vercel.app/:0
-[  303215ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://vibebranding.vercel.app/icon-192.png:0
-[  303215ms] [WARNING] Error while trying to use the following icon from the Manifest: https://vibebranding.vercel.app/icon-192.png (Download error or resource isn't a valid image) @ https://vibebranding.vercel.app/dashboard:0
-[  303889ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://vibebranding.vercel.app/icon-192.png:0
-[  303890ms] [WARNING] Error while trying to use the following icon from the Manifest: https://vibebranding.vercel.app/icon-192.png (Download error or resource isn't a valid image) @ https://vibebranding.vercel.app/auth/login:0
