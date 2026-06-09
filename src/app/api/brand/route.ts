@@ -28,7 +28,9 @@ import { runApplications } from "@/modules/applications/index";
 import { runGuidelines } from "@/modules/guidelines/index";
 import { getConsistencyEngine } from "@/core/consistency-engine/index";
 import { generateMockBSO, generateMockStageResult } from "@/ai/mock-data";
-import type { ProductInfo, BrandStateObject } from "@/core/bso/types";
+import { validateBrandInput } from "./input-schema";
+import { saveBrand } from "@/lib/brand-persistence";
+import type { Competitor, ProductInfo, BrandStateObject } from "@/core/bso/types";
 
 // Allow up to 60s for sequential AI calls (Vercel Hobby supports up to 60s since May 2024)
 export const maxDuration = 60;
@@ -58,6 +60,17 @@ function isMockMode(request: NextRequest): boolean {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Validate input with Zod
+    const validation = validateBrandInput(body);
+    if (!validation.success) {
+      const errors = validation.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`);
+      return NextResponse.json(
+        { success: false, error: `Validation failed: ${errors.join("; ")}` },
+        { status: 400 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const targetStage = parseInt(searchParams.get("stage") || "9", 10);
     const mockMode = isMockMode(request);
@@ -347,7 +360,7 @@ export async function POST(request: NextRequest) {
       }
       // Fill competitors from input if missing (needed for BCE check 8)
       if (!currentBso.product.competitors?.length && productInput.competitors?.length) {
-        bsoStore.update("product", { competitors: productInput.competitors as any });
+        bsoStore.update("product", { competitors: productInput.competitors as Competitor[] });
       }
     }
 
@@ -368,16 +381,33 @@ export async function POST(request: NextRequest) {
       })),
     };
 
-    // ─── Export BSO ─────────────────────────────────────
+    // ─── Persist to Supabase (best-effort) ─────────────
     const bsoJson = getBsoStore().toJSON();
+    const bsoParsed = JSON.parse(bsoJson) as BrandStateObject;
 
-    return NextResponse.json({
+    // Save asynchronously but don't block response
+    const savePromise = saveBrand(
+      body.productName || body.name || "Untitled",
+      body.description || "",
+      9,
+      bsoParsed
+    ).catch(() => null);
+
+    const response = NextResponse.json({
       success: true,
       stage: 9,
       results,
-      bso: JSON.parse(bsoJson),
+      bso: bsoParsed,
       _mockFallback: mockFallbackUsed || mockMode,
     });
+
+    // Fire persistence — response is already enqueued
+    await Promise.race([
+      savePromise,
+      new Promise((r) => setTimeout(r, 2000)), // 2s timeout so we never stall
+    ]);
+
+    return response;
   } catch (err) {
     console.error("VibeBranding pipeline error:", err);
     return NextResponse.json(

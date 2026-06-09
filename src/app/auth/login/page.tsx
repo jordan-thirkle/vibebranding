@@ -1,15 +1,34 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 
 type SupabaseState = 'loading' | 'available' | 'unconfigured'
 
+/** Friendly messages for auth errors passed from callback */
+const ERROR_MESSAGES: Record<string, string> = {
+  auth_failed: 'Authentication failed. Please try again.',
+  no_code: 'Invalid login link. Please request a new one.',
+  not_configured: 'Authentication is not configured yet. Set up Supabase to enable login.',
+  access_denied: 'Login was cancelled or denied.',
+  expired_token: 'This login link has expired. Please request a new one.',
+}
+
 export default function LoginPage() {
+  const searchParams = useSearchParams()
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
   const [supabaseState, setSupabaseState] = useState<SupabaseState>('loading')
+
+  // Read error from URL params (passed from auth callback)
+  useEffect(() => {
+    const urlError = searchParams?.get('error')
+    if (urlError) {
+      setError(ERROR_MESSAGES[urlError] || urlError)
+    }
+  }, [searchParams])
 
   useEffect(() => {
     const url = typeof window !== 'undefined' && typeof process !== 'undefined'

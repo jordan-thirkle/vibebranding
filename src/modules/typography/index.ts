@@ -8,7 +8,6 @@
 
 import { getBsoStore } from "@/core/bso";
 import { getPromptEngine } from "@/core/prompt-engine/index";
-import { generateWithGemini, getGeminiConfig } from "@/ai/gemini";
 import { generateTypeScale, recommendFonts, buildFallbackStack, type ScaleRatio, type FontRecommendation } from "@/lib/typography";
 import type { TypographyInfo, FontSelection, VisualIdentityInfo } from "@/core/bso/types";
 
@@ -27,7 +26,6 @@ export interface TypographyOutput {
 export async function runTypography(): Promise<TypographyOutput> {
   const store = getBsoStore();
   const engine = getPromptEngine();
-  const config = getGeminiConfig();
   const bso = store.get();
 
   if (!bso.strategy.personalityArchetypes.length) {

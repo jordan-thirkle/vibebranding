@@ -8,7 +8,7 @@
 
 import { getBsoStore } from "@/core/bso";
 import { getPromptEngine, registerAllTemplates } from "@/core/prompt-engine/index";
-import { generateWithGemini, getGeminiConfig } from "@/ai/gemini";
+import { generateText } from "@/ai/fallback";
 import type { ProductInfo, Competitor, BrandStateObject } from "@/core/bso/types";
 
 // Ensure templates are registered
@@ -42,7 +42,6 @@ export interface DiscoveryOutput {
 export async function runDiscovery(input: DiscoveryInput): Promise<DiscoveryOutput> {
   const store = getBsoStore();
   const engine = getPromptEngine();
-  const config = getGeminiConfig();
 
   // Validate input
   const errors: string[] = [];
@@ -85,7 +84,7 @@ export async function runDiscovery(input: DiscoveryInput): Promise<DiscoveryOutp
 
   let analysisText: string;
   try {
-    analysisText = await generateWithGemini(prompt, config, { temperature: 0.5, maxTokens: 4096 });
+    analysisText = await generateText(prompt, { temperature: 0.5, maxTokens: 4096 });
   } catch (err) {
     return {
       success: false,

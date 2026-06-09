@@ -11,7 +11,7 @@
 
 import { getBsoStore } from "@/core/bso";
 import { getPromptEngine } from "@/core/prompt-engine/index";
-import { generateWithGemini, getGeminiConfig } from "@/ai/gemini";
+import { generateText } from "@/ai/fallback";
 import type { TaglineCandidate, MessagingHierarchy, CopyExamples, VerbalIdentityInfo } from "@/core/bso/types";
 
 export interface VerbalOutput {
@@ -28,7 +28,6 @@ export interface VerbalOutput {
 export async function runVerbalIdentity(): Promise<VerbalOutput> {
   const store = getBsoStore();
   const engine = getPromptEngine();
-  const config = getGeminiConfig();
   const bso = store.get();
 
   if (!bso.strategy.emotionalTerritory || !bso.verbalIdentity.naming) {
@@ -42,7 +41,7 @@ export async function runVerbalIdentity(): Promise<VerbalOutput> {
 
   let copyText: string;
   try {
-    copyText = await generateWithGemini(prompt, config, { temperature: 0.7, maxTokens: 8192 });
+    copyText = await generateText(prompt, { temperature: 0.7, maxTokens: 8192 });
   } catch (err) {
     return {
       success: false, taglines: [], heroHeadline: "", primaryCTA: "",

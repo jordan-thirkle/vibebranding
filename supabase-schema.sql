@@ -53,3 +53,49 @@ CREATE TRIGGER update_brands_updated_at
   BEFORE UPDATE ON brands
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at_column();
+
+-- ─── Profiles Table ──────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email TEXT,
+  plan_tier TEXT NOT NULL DEFAULT 'free',
+  stripe_customer_id TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Index for looking up by stripe_customer_id
+CREATE INDEX IF NOT EXISTS idx_profiles_stripe_customer_id ON profiles(stripe_customer_id);
+CREATE INDEX IF NOT EXISTS idx_profiles_plan_tier ON profiles(plan_tier);
+
+-- Row Level Security
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+
+-- Users can view their own profile
+CREATE POLICY "Users can view own profile"
+  ON profiles FOR SELECT
+  USING (auth.uid() = id);
+
+-- Users can insert their own profile (callback does this on first login)
+CREATE POLICY "Users can insert own profile"
+  ON profiles FOR INSERT
+  WITH CHECK (auth.uid() = id);
+
+-- Users can update their own profile
+CREATE POLICY "Users can update own profile"
+  ON profiles FOR UPDATE
+  USING (auth.uid() = id);
+
+-- Service role can upsert profiles (stripe webhook needs this)
+CREATE POLICY "Service role can manage all profiles"
+  ON profiles
+  FOR ALL
+  TO service_role
+  USING (true)
+  WITH CHECK (true);
+
+-- Auto-update updated_at on profiles
+CREATE TRIGGER update_profiles_updated_at
+  BEFORE UPDATE ON profiles
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at_column();

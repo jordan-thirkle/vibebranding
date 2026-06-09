@@ -6,8 +6,13 @@ const { Client } = require('pg');
 const fs = require('fs');
 const path = require('path');
 
-const PROJECT_REF = 'pmvletkipbupbejhouhp';
-const DB_PASSWORD = 'JjfTyJv0a5dfcnQZ';
+const PROJECT_REF = process.env.SUPABASE_PROJECT_REF || 'pmvletkipbupbejhouhp';
+const DB_PASSWORD = process.env.SUPABASE_DB_PASSWORD;
+if (!DB_PASSWORD) {
+  console.error('ERROR: SUPABASE_DB_PASSWORD environment variable is required.');
+  console.error('Usage: SUPABASE_DB_PASSWORD=your_password SUPABASE_PROJECT_REF=your_ref node scripts/setup-supabase.js');
+  process.exit(1);
+}
 
 const client = new Client({
   host: `db.${PROJECT_REF}.supabase.co`,

@@ -13,7 +13,7 @@
 
 import { getBsoStore } from "@/core/bso";
 import { getPromptEngine } from "@/core/prompt-engine/index";
-import { generateWithGemini, getGeminiConfig } from "@/ai/gemini";
+import { generateText } from "@/ai/fallback";
 import type { LogoConcept, LogoLockup, LogoQualityChecks, VisualIdentityInfo } from "@/core/bso/types";
 
 export interface LogoOutput {
@@ -29,7 +29,6 @@ export interface LogoOutput {
 export async function runLogo(): Promise<LogoOutput> {
   const store = getBsoStore();
   const engine = getPromptEngine();
-  const config = getGeminiConfig();
   const bso = store.get();
 
   if (!bso.visualIdentity.colourSystem || !bso.visualIdentity.typography) {
@@ -55,7 +54,7 @@ export async function runLogo(): Promise<LogoOutput> {
 
   let logoText: string;
   try {
-    logoText = await generateWithGemini(prompt, config, { temperature: 0.6, maxTokens: 4096 });
+    logoText = await generateText(prompt, { temperature: 0.6, maxTokens: 4096 });
   } catch (err) {
     return {
       success: false, typology, concepts: [],
@@ -89,7 +88,7 @@ Design requirements:
 
 Return ONLY valid SVG code. No markdown, no explanation, no code fences.`;
 
-      const svgCode = await generateWithGemini(svgPrompt, config, {
+      const svgCode = await generateText(svgPrompt, {
         temperature: 0.3,
         maxTokens: 4096,
       });

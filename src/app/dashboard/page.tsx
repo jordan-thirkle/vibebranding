@@ -3,6 +3,8 @@
 import { useEffect, useState, useMemo, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import BrandCard from '@/components/BrandCard'
+import BrandSkeleton from '@/components/BrandSkeleton'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import BrandPreviewModal from '@/components/BrandPreviewModal'
 
 // ─── Types ───────────────────────────────────────────────────
@@ -166,12 +168,19 @@ export default function DashboardPage() {
 
   if (session === null || loading) {
     return (
-      <div className="flex min-h-full items-center justify-center p-8">
-        <div
-          className="w-8 h-8 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"
-          aria-label="Loading dashboard"
-          role="status"
-        />
+      <div className="flex min-h-full flex-col" role="status" aria-label="Loading brands">
+        <header className="border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-6 py-4">
+          <div className="h-5 w-32 rounded bg-zinc-200 dark:bg-zinc-800 animate-pulse" />
+        </header>
+        <main className="flex-1 p-6 lg:p-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {Array.from({ length: 6 }, (_, i) => (
+                <BrandSkeleton key={i} />
+              ))}
+            </div>
+          </div>
+        </main>
       </div>
     )
   }
@@ -332,14 +341,16 @@ export default function DashboardPage() {
         {filteredBrands.length > 0 && (
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredBrands.map((brand) => (
-                <BrandCard
-                  key={brand.id}
-                  brand={brand}
-                  onClick={() => setPreviewId(brand.id)}
-                  onDelete={() => fetchBrands()}
-                />
-              ))}
+              <ErrorBoundary>
+                {filteredBrands.map((brand) => (
+                  <BrandCard
+                    key={brand.id}
+                    brand={brand}
+                    onClick={() => setPreviewId(brand.id)}
+                    onDelete={() => fetchBrands()}
+                  />
+                ))}
+              </ErrorBoundary>
             </div>
           </div>
         )}

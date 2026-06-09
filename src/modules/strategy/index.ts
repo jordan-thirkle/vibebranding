@@ -11,7 +11,7 @@
 
 import { getBsoStore } from "@/core/bso";
 import { getPromptEngine } from "@/core/prompt-engine/index";
-import { generateWithGemini, getGeminiConfig } from "@/ai/gemini";
+import { generateText } from "@/ai/fallback";
 import { ARCHETYPES, getSpectrumFromArchetypes, getToneFromArchetypes } from "@/lib/branding-frameworks";
 import type { BrandArchetype, StrategyInfo, BrandStateObject } from "@/core/bso/types";
 
@@ -31,7 +31,6 @@ export interface StrategyOutput {
 export async function runStrategy(): Promise<StrategyOutput> {
   const store = getBsoStore();
   const engine = getPromptEngine();
-  const config = getGeminiConfig();
   const bso = store.get();
 
   // Validate prerequisites
@@ -51,7 +50,7 @@ export async function runStrategy(): Promise<StrategyOutput> {
 
   let strategyText: string;
   try {
-    strategyText = await generateWithGemini(prompt, config, { temperature: 0.5, maxTokens: 4096 });
+    strategyText = await generateText(prompt, { temperature: 0.5, maxTokens: 4096 });
   } catch (err) {
     return {
       success: false,

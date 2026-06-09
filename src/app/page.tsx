@@ -5,6 +5,7 @@ import Link from "next/link";
 import ProductForm from "@/components/ProductForm";
 import LoadingState from "@/components/LoadingState";
 import ResultsView from "@/components/ResultsView";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // ─── Types ───────────────────────────────────────────────────
 
@@ -245,31 +246,33 @@ export default function Home() {
       {/* ── Main Content ────────────────────────────── */}
       <main className="flex-1 overflow-y-auto p-8 lg:p-12 pt-16 lg:pt-12">
         <div className="max-w-2xl mx-auto">
-          {currentStage === 0 && !loading && (
-            <ProductForm
-              input={productInput}
-              onChange={setProductInput}
-              onSubmit={runPipeline}
-              error={error}
-            />
-          )}
+          <ErrorBoundary>
+            {currentStage === 0 && !loading && (
+              <ProductForm
+                input={productInput}
+                onChange={setProductInput}
+                onSubmit={runPipeline}
+                error={error}
+              />
+            )}
 
-          {loading && (
-            <LoadingState currentStage={currentStage} stages={STAGES} />
-          )}
+            {loading && (
+              <LoadingState currentStage={currentStage} stages={STAGES} />
+            )}
 
-          {!loading && results.length > 0 && (
-            <ResultsView
-              results={results}
-              bso={bso}
-              onReset={() => { setCurrentStage(0); setResults([]); setBso(null); setError(""); setExportError(""); }}
-              onExport={handleExport}
-              exportLoading={exportLoading}
-              exportError={exportError}
-            />
-          )}
+            {!loading && results.length > 0 && (
+              <ResultsView
+                results={results}
+                bso={bso}
+                onReset={() => { setCurrentStage(0); setResults([]); setBso(null); setError(""); setExportError(""); }}
+                onExport={handleExport}
+                exportLoading={exportLoading}
+                exportError={exportError}
+              />
+            )}
+          </ErrorBoundary>
 
-          {/* Error boundary fallback */}
+          {/* Recovery prompt */}
           {!loading && results.length === 0 && currentStage > 0 && !error && (
             <div className="text-center py-20">
               <p className="text-zinc-500">Results not available. Click below to start again.</p>

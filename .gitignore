@@ -45,6 +45,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# keep env template but not actual local keys
-.env*.local
 .vercel

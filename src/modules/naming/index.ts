@@ -10,7 +10,7 @@
 
 import { getBsoStore } from "@/core/bso";
 import { getPromptEngine } from "@/core/prompt-engine/index";
-import { generateWithGemini, getGeminiConfig } from "@/ai/gemini";
+import { generateText } from "@/ai/fallback";
 import {
   analyzePhonetics,
   scoreMemorability,
@@ -39,7 +39,6 @@ export interface NamingOutput {
 export async function runNaming(): Promise<NamingOutput> {
   const store = getBsoStore();
   const engine = getPromptEngine();
-  const config = getGeminiConfig();
   const bso = store.get();
 
   if (!bso.strategy.emotionalTerritory) {
@@ -56,7 +55,7 @@ export async function runNaming(): Promise<NamingOutput> {
 
   let namingText: string;
   try {
-    namingText = await generateWithGemini(prompt, config, { temperature: 0.8, maxTokens: 4096 });
+    namingText = await generateText(prompt, { temperature: 0.8, maxTokens: 4096 });
   } catch (err) {
     return {
       success: false,

@@ -54,9 +54,12 @@ export function generateTypeScale(
   const r = SCALE_RATIOS[ratio];
   const steps: TypeScaleStep[] = [];
 
-  // Start from xs (base / ratio^2) to keep base centered
-  const startPower = -2;
-  const endPower = 5;
+  // Start from a power that ensures minimum step >= 11px (BCE legibility requirement)
+  let startPower = -2;
+  if (Math.round(basePx * Math.pow(r, startPower)) < 11) {
+    startPower = -1;
+  }
+  const endPower = startPower + 8; // Always generate 9 steps
 
   for (let i = 0; i < STEP_NAMES.length; i++) {
     const power = startPower + i;
