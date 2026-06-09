@@ -59,6 +59,14 @@ let validated = false;
 let errors: string[] = [];
 
 /**
+ * Reset validation state (used in tests).
+ */
+export function resetEnvValidation(): void {
+  validated = false;
+  errors = [];
+}
+
+/**
  * Validate all environment variables.
  * Call once at server startup. Throws if required vars are missing.
  * Returns a list of warnings for optional vars that are missing.
