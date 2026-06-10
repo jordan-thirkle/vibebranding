@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import Card from "@/components/Card";
 import Label from "@/components/Label";
 import ExportButton from "@/components/ExportButton";
@@ -53,6 +54,7 @@ interface ResultsViewProps {
 export default function ResultsView({
   results, bso, onReset, onExport, exportLoading, exportError,
 }: ResultsViewProps) {
+  const router = useRouter();
   const discovery = results.find((r) => r.stage === 1)?.data as {
     positioning?: string;
   } | undefined;
@@ -81,13 +83,20 @@ export default function ResultsView({
 
   return (
     <div className="vb-fade-in space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-3">
         <h2 className="text-2xl font-bold tracking-tight">Your Brand Identity</h2>
         <div className="flex items-center gap-2">
           {bso?.product?.name && (
-            <span className="text-sm text-zinc-500 mr-2">{bso.product.name}</span>
+            <span className="text-sm text-zinc-500 mr-2 hidden sm:inline">{bso.product.name}</span>
           )}
-          <button onClick={onReset} className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+          <button
+            onClick={() => router.push('/dashboard')}
+            className="min-h-[44px] px-4 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 text-sm font-medium hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+            aria-label="View saved brand in dashboard"
+          >
+            📁 My Brands
+          </button>
+          <button onClick={onReset} className="text-sm text-blue-600 hover:text-blue-700 font-medium whitespace-nowrap">
             ← New Brand
           </button>
         </div>

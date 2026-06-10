@@ -30,15 +30,18 @@ Output your analysis in structured format for insertion into the Brand State Obj
     const { bso } = ctx;
     return `You are a Brand Strategist. Based on the product discovery data, define:
 
-1. **Brand Archetype(s)** — choose from the 12 Jungian archetypes with weighted blends. For each: explain why it fits, visual implications, verbal implications.
+1. **Brand Archetype(s)** — choose from the 12 Jungian archetypes with weighted blends.
+   CRITICAL RULE: Avoid the default combination of "Creator + Sage". This is the most overused archetype pairing in tech. Force genuinely unexpected combinations that create tension and interest.
+   For each archetype: explain the specific brand implication that would NOT work with any other archetype.
 2. **Personality Spectrum** — score the brand on 5 axes (0-100):
    - Exciting vs Calm
    - Modern vs Classic
    - Playful vs Serious
    - Accessible vs Exclusive
    - Bold vs Understated
-3. **Emotional Territory** — a phrase capturing the core feeling (e.g., "confident clarity")
-4. **Brand Values** — 3-5 specific, actionable values
+3. **Emotional Territory** — a phrase capturing the core feeling (e.g., "confident clarity").
+   Must be specific enough that no competitor would use the same phrase.
+4. **Brand Values** — 3-5 specific, actionable values. Not generic (avoid: quality, innovation, trust).
 5. **Tone of Voice** — 4 dimensions (Formal↔Casual, Serious↔Witty, Authoritative↔Approachable, Conventional↔Irreverent) with example phrases
 
 Product: ${bso.product.name}
@@ -77,6 +80,15 @@ Tone: ${describeTone(bso.strategy.toneOfVoice)}`;
     const { bso } = ctx;
     const archetypes = bso.strategy.personalityArchetypes.map(a => a.archetype).join(", ");
     return `You are a Colour Theorist. Construct a complete colour system for this brand.
+
+**CRITICAL RULES:**
+- AVOID primary blue + orange/warm accent. This is the most overused SaaS palette (Stripe, Slack, Asana, Intercom, and thousands more).
+- AVOID cyan + white minimalism (Coinbase, Zoom, Twilio territory).
+- Choose unexpected, differentiated colour stories. Examples of unique combinations: violet+teal, amber+indigo, rose+slate, emerald+plum, coral+navy, lime+charcoal, rust+teal, graphite+copper.
+- For neutral/utility brands: consider slate+emerald, charcoal+amber, graphite+copper instead of grey+blue.
+- For creative brands: avoid purple+pink (Figma, Canva, Notion default). Try ochre+teal, rust+forest, brass+slate.
+- Every palette must pass the "screenshot test": if someone screenshots your target page and posts it, the colour combination should be instantly recognisable and NOT look like a competitor.
+- Avoid "dark mode = inverted" — dark mode should shift hues warmer/cooler, not just invert.
 
 **Brand Context:**
 - Archetypes: ${archetypes}
@@ -118,7 +130,10 @@ Tone: ${describeTone(bso.strategy.toneOfVoice)}`;
 6. **Google Fonts embed code** or @font-face declarations
 7. **CSS Custom Properties + Tailwind Config** output
 
-Avoid overused defaults: Inter, Roboto, Helvetica Neue, Arial.
+AVOID OVERUSED DEFAULTS: Inter, Roboto, Helvetica Neue, Arial, Open Sans, Lato, Poppins, Montserrat, system-ui.
+- For DISPLAY fonts: choose something with genuine character (variable, geometric with quirks, serif revival, or unique sans). Avoid "safe" choices.
+- For BODY fonts: consider non-default options like Space Grotesk, Satoshi, ABC Diatype, Founders Grotesk, or premium Google Fonts alternatives (DM Sans, Sora, Plus Jakarta Sans).
+- For MONO fonts: avoid JetBrains Mono unless the brand is specifically for developers. Consider departures from mono norms.
 Prefer variable fonts when possible.
 Ensure minimum 1.5 line-height for body, max 75 chars per line.`;
   },
@@ -220,14 +235,21 @@ Respect prefers-reduced-motion. Never exceed 500ms for functional UI animations.
 - Emotional Territory: ${bso.strategy.emotionalTerritory}
 - Values: ${bso.strategy.brandValues.join(", ")}
 
+**CRITICAL RULE — The Competitor Test:**
+Every tagline and headline must pass: "Could any competitor swap in their name and this still makes sense?"
+If yes, reject it. The message must be SPECIFIC to this brand, this audience, this positioning.
+
+Example FAIL: "The future of prompt management" — any prompt tool can claim this.
+Example PASS: "From blank page to production prompt" — communicates the specific value (speed, output orientation, not just management).
+
 **Generate:**
-1. **20 Tagline Candidates** across 5 approaches (benefit-led, emotion-led, imperative, question, positioning condensed). Score each 1-10 on memorability, originality, brand fit.
+1. **20 Tagline Candidates** across 5 approaches (benefit-led, emotion-led, imperative, question, positioning condensed). Score each 1-10 on memorability, originality, brand fit. Explain why each passes the Competitor Test.
 2. **Messaging Hierarchy**: Hero headline (5-10 words), sub-headline (15-25 words), body description (40-60 words), primary CTA (2-4 words), feature headlines (3-5).
 3. **Tone Examples**: Same message in 3 tones — on-brand, too formal, too casual
 4. **Microcopy**: Button labels, error messages, empty states, tooltips, success states, loading states
 5. **Brand Vocabulary**: Words we own, words we avoid, naming conventions
 
-NEVER use: "revolutionary", "game-changing", "seamless", "innovative", "cutting-edge", "disruptive", "next-gen", "world-class".`;
+NEVER use: "revolutionary", "game-changing", "seamless", "innovative", "cutting-edge", "disruptive", "next-gen", "world-class", "powerful", "robust", "next-generation"."`;
   },
 };
 

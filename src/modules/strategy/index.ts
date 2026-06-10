@@ -157,26 +157,48 @@ function extractArchetypes(text: string): string[] {
   const archetypeNames = Object.keys(ARCHETYPES);
   const found: string[] = [];
 
-  // Direct mentions
-  for (const name of archetypeNames) {
-    if (text.toLowerCase().includes(name.toLowerCase())) {
-      found.push(name);
+  // Pass 1: Look for structured sections like "## Archetypes" or "**Archetype Blend**"
+  // These contain explicitly named archetypes with weights/reasoning
+  const structuredSection = text.match(
+    /#{1,3}\s*(?:brand )?archetype[^:]*[:：]?([^#]*?)(?=#{1,3}|$)/i
+  ) || text.match(
+    /\*{1,2}archetype[^*]*\*{1,2}[：:]\s*([^*]*?)(?=\*{1,2}|$)/i
+  );
+  if (structuredSection) {
+    const sectionText = structuredSection[1];
+    for (const name of archetypeNames) {
+      // Only count as "mentioned" if it's in a structured context (weight/percentage nearby)
+      const contextPattern = new RegExp(`${name}[\\s\\S]{0,50}?(?:weight|%|\\d+\\.?\\d*|blend|primary|secondary)`, "i");
+      const inversePattern = new RegExp(`(?:weight|%|blend|primary|secondary)[\\s\\S]{0,50}?${name}`, "i");
+      if (contextPattern.test(sectionText) || inversePattern.test(sectionText)) {
+        if (!found.includes(name)) found.push(name);
+      }
     }
   }
 
-  // If none found, default based on keyword analysis
+  // Pass 2: If structured section found nothing, do direct name matching
   if (found.length === 0) {
-    if (text.toLowerCase().includes("innov")) found.push("Creator");
-    if (text.toLowerCase().includes("trust")) found.push("Everyman");
-    if (text.toLowerCase().includes("power")) found.push("Ruler");
-    if (text.toLowerCase().includes("fun") || text.toLowerCase().includes("play")) found.push("Jester");
-    if (text.toLowerCase().includes("wisdom") || text.toLowerCase().includes("expert")) found.push("Sage");
-    if (text.toLowerCase().includes("freedom") || text.toLowerCase().includes("explore")) found.push("Explorer");
+    for (const name of archetypeNames) {
+      if (text.toLowerCase().includes(name.toLowerCase())) {
+        found.push(name);
+      }
+    }
   }
 
-  // Fallback
+  // Pass 3: Only use keyword analysis if we found NOTHING with the above
+  // Use rarer keywords that are less likely to appear in generic AI output
   if (found.length === 0) {
-    found.push("Creator", "Explorer");
+    // These are very specific descriptors, not common AI buzzwords
+    if (/\b(safe|belong|community|familiar)\b/i.test(text) && /\b(everyman|regular)\b/i.test(text)) found.push("Everyman");
+    if (/\b(paradise|beauty|heaven|garden)\b/i.test(text)) found.push("Innocent");
+    if (/\b(rebel|disrupt|break|edgy)\b/i.test(text)) found.push("Outlaw");
+    if (/\b(transform|magic|vision|miraculous)\b/i.test(text)) found.push("Magician");
+  }
+
+  // Ultimate fallback — avoid the default of Creator + Explorer
+  // Instead of guessing, pick the most neutral option or let the user decide
+  if (found.length === 0) {
+    found.push("Sage", "Caregiver");  // Neutral defaults that are tech-agnostic
   }
 
   return found.slice(0, 3); // Max 3 archetypes
