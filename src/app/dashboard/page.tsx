@@ -53,6 +53,9 @@ export default function DashboardPage() {
   const [configError, setConfigError] = useState(false)
   const [fetchError, setFetchError] = useState<string | null>(null)
 
+  // Plan info (for upgrade prompts)
+  const [plan, setPlan] = useState<{ tier: string; brandCount: number; maxBrands: number; canCreate: boolean; isUnlimited: boolean } | null>(null)
+
   // Search, filter, sort state
   const [searchQuery, setSearchQuery] = useState('')
   const [stageFilter, setStageFilter] = useState(0)
@@ -87,12 +90,22 @@ export default function DashboardPage() {
         setLoading(false)
         return
       }
-      supabase.auth.getUser().then(({ data: { user } }) => {
+      supabase.auth.getUser().then(async ({ data: { user } }) => {
         if (!user) {
           router.replace('/auth/login')
           return
         }
         setSession(true)
+
+        // Fetch plan info alongside brands
+        try {
+          const planRes = await fetch('/api/stripe/plan')
+          if (planRes.ok) {
+            const planData = await planRes.json()
+            setPlan(planData)
+          }
+        } catch { /* non-critical */ }
+
         fetchBrands()
       })
     })
@@ -291,6 +304,30 @@ export default function DashboardPage() {
               >
                 Try again
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Plan usage banner */}
+        {plan && !plan.isUnlimited && brands.length > 0 && (
+          <div className="mb-6 max-w-6xl mx-auto">
+            <div className={`rounded-xl border px-5 py-3 text-sm flex items-center justify-between gap-4 ${
+              plan.canCreate
+                ? 'border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 text-zinc-600 dark:text-zinc-400'
+                : 'border-amber-200 dark:border-amber-900/50 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400'
+            }`}>
+              <span>
+                <strong>{plan.brandCount}</strong> / {plan.maxBrands} brands used
+                {plan.canCreate ? ` (${plan.maxBrands - plan.brandCount} remaining)` : ''}
+              </span>
+              {!plan.canCreate && (
+                <a
+                  href="/pricing"
+                  className="shrink-0 min-h-[36px] inline-flex items-center px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold transition-colors"
+                >
+                  Upgrade Plan
+                </a>
+              )}
             </div>
           </div>
         )}
